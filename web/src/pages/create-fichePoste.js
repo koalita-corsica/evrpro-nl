@@ -6,7 +6,6 @@ import secours from "../assets/secours.png";
 import logo from "../assets/logo.png";
 import qualifi from "../assets/qualifications.png";
 import forma from "../assets/formations.png";
-import $ from "jquery";
 import { navigate } from 'gatsby';
 const sanityClient = require('@sanity/client');
 const axios = require('axios');
