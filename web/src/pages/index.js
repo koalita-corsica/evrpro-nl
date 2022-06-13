@@ -8,7 +8,7 @@ import {
 } from "../lib/helpers";
 import Layout from "../containers/layout";
 import { Link } from "gatsby";
-
+import axios from 'axios';
 
 
 import * as styles from "../styles/home.css";
