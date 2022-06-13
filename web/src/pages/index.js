@@ -10,7 +10,6 @@ import Layout from "../containers/layout";
 import { Link } from "gatsby";
 
 
-import { BsFillPlusSquareFill } from "react-icons/bs";
 
 import * as styles from "../styles/home.css";
 

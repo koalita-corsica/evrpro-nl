@@ -8,9 +8,7 @@ import secours from "../../assets/secours.png";
 import logo from "../../assets/logo.png";
 import qualifi from "../../assets/qualifications.png";
 import forma from "../../assets/formations.png";
-import { GiDiploma } from 'react-icons/gi';
 import html2canvas from "html2canvas";
-import $ from "jquery";
 import PortableText from "../portableText";
 
 const Fiche = (props) => {

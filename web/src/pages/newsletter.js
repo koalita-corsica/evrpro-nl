@@ -2,7 +2,6 @@ import React from 'react';
 import Layout from '../components/layout';
 import {graphql, Link} from "gatsby";
 import * as styles from "../styles/fsap.css";
-import { AiOutlinePlus } from "react-icons/ai"
 import Previous from '../components/previous/previous';
 
 

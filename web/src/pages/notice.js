@@ -1,7 +1,6 @@
 import React from 'react';
 import Layout from '../components/layout';
 import * as styles from "../styles/fsap.css";
-import { AiOutlinePlus } from "react-icons/ai"
 import {Link} from "gatsby";
 import Previous from '../components/previous/previous';
 
