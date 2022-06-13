@@ -1,10 +1,6 @@
 import React, {useEffect} from 'react';
 import logo from "../../assets/logoL.png";
 import logoN from "../../assets/logoLN.png";
-import { MdDoNotDisturbAlt } from 'react-icons/md';
-import { BsTelephoneOutbound } from 'react-icons/bs';
-import { GiFirstAidKit } from 'react-icons/gi';
-import { BsShieldFillX } from 'react-icons/bs';
 import PortableText from "../portableText";
 import mascotteM from "../../assets/mascotteM.png"
 import risqueC from "../../assets/risqueC.png"
@@ -21,7 +17,6 @@ import phoneA from "../../assets/phoneA.png"
 import feu from "../../assets/feu.png"
 import proteger from "../../assets/proteger.png"
 import secoursA from "../../assets/secoursA.png"
-import $ from "jquery"
 import secourisme from "../../assets/secourisme.png";
 import evacuation from "../../assets/evacuation.png";
 import feuM from "../../assets/feuM.png";

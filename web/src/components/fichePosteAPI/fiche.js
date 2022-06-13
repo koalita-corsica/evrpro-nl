@@ -8,12 +8,8 @@ import secours from "../../assets/secours.png";
 import logo from "../../assets/logo.png";
 import qualifi from "../../assets/qualifications.png";
 import forma from "../../assets/formations.png";
-import { GiDiploma } from 'react-icons/gi';
 import html2canvas from "html2canvas";
-import $ from "jquery";
 import PortableText from "../portableText";
-import { FaDownload } from 'react-icons/fa';
-import { FaTrashAlt } from 'react-icons/fa';
 
 // // import { useDocumentOperation } from "@sanity/react-hooks";
 // import {v4 as uuid} from 'uuid';
@@ -57,8 +53,12 @@ const Fiche = (props) => {
 
   return (
     <React.Fragment>
-      <FaDownload onClick={() => window.print()} style={{padding: '2rem', fontSize: '30px', cursor: 'pointer'}} />
-      < FaTrashAlt style={{padding: '2rem', fontSize: '30px'}} />
+      <input
+      type="button"
+      value="Télécharger le pdf"
+      onClick={() => window.print()}
+      className={styles.button1}
+      />
       <div id={styles.capture} style={{width: '30cm', margin: '0 auto'}}>
         <div className={styles.container}>
           <div data-headerF>
