@@ -7,8 +7,8 @@ import phone from "../assets/phone.png";
 import location from "../assets/location.png";
 import * as styles from "../components/LettrePro/newsletter.module.css";
 import {graphql} from "gatsby";
-import 'react-quill/dist/quill.snow.css';
-const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
+// import 'react-quill/dist/quill.snow.css';
+// const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
 const sanityClient = require('@sanity/client');
 const client = sanityClient({
     projectId: 'zpdf06rn',
@@ -283,23 +283,23 @@ const CreateNewsletter = (props) => {
                         <input type="text" name="title1" onChange={(e) => setTitleArticle1(e.target.value)} />
                         <input type="file" name="image" onChange={(e) => handleImage1(e)} />
                         <label for="textA1"> Texte de l'article </label>
-                        <ReactQuill theme="snow" value={article1} onChange={setArticle1}/>
+                        {/* <ReactQuill theme="snow" value={article1} onChange={setArticle1}/> */}
                     </details>
                     <details style={{display: 'flex', flexDirection: 'column'}}>
                         <summary> Article 2 </summary>
                         <label for="title2"> Title de l'article 2 </label>
                         <input type="text" name="title2" onChange={(e) => setTitleArticle2(e.target.value)} />
                         <label for="textA2"> Texte de l'article </label>
-                        <ReactQuill theme="snow" value={article2} onChange={setArticle2}/>
+                        {/* <ReactQuill theme="snow" value={article2} onChange={setArticle2}/> */}
                     </details>
                     <details style={{display: 'flex', flexDirection: 'column'}}>
                         <summary> Article 3 </summary>
                         <label for="title3"> Title de l'article 3 </label>
                         <input type="text" name="title3" onChange={(e) => setTitleArticle3(e.target.value)} />
                         <label for="textA31"> Texte de l'article 3 P1 </label>
-                        <ReactQuill theme="snow" value={article31} onChange={setArticle31}/>
+                        {/* <ReactQuill theme="snow" value={article31} onChange={setArticle31}/> */}
                         <label for="textA32"> Texte de l'article 3 P2 </label>
-                        <ReactQuill theme="snow" value={article32} onChange={setArticle32}/>
+                        {/* <ReactQuill theme="snow" value={article32} onChange={setArticle32}/> */}
                     </details>
                     <details style={{display: 'flex', flexDirection: 'column'}}>
                         <summary> Article 4 </summary>
@@ -307,7 +307,7 @@ const CreateNewsletter = (props) => {
                         <input type="text" name="title4" onChange={(e) => setTitleArticle4(e.target.value)} />
                         <input type="file" name="image" onChange={(e) => handleImage4(e)}/>
                         <label for="textA4"> Texte de l'article </label>
-                        <ReactQuill theme="snow" value={article4} onChange={setArticle4}/>
+                        {/* <ReactQuill theme="snow" value={article4} onChange={setArticle4}/> */}
                     </details>
                     <details style={{display: 'flex', flexDirection: 'column'}}>
                         <summary> Article 5 </summary>
@@ -315,7 +315,7 @@ const CreateNewsletter = (props) => {
                         <input type="text" name="title5" onChange={(e) => setTitleArticle5(e.target.value)} />
                         <input type="file" name="image" onChange={(e) => handleImage5(e)} />
                         <label for="textA5"> Texte de l'article </label>
-                        <ReactQuill theme="snow" value={article5} onChange={setArticle5}/>
+                        {/* <ReactQuill theme="snow" value={article5} onChange={setArticle5}/> */}
                     </details>
                     <details style={{display: 'flex', flexDirection: 'column'}}>
                         <summary> Article 6 </summary>
@@ -323,7 +323,7 @@ const CreateNewsletter = (props) => {
                         <input type="text" name="title6" onChange={(e) => setTitleArticle6(e.target.value)} />
                         <input type="file" name="image" onChange={(e) => handleImage6(e)} />
                         <label for="textA6"> Texte de l'article </label>
-                        <ReactQuill theme="snow" value={article6} onChange={setArticle6}/>
+                        {/* <ReactQuill theme="snow" value={article6} onChange={setArticle6}/> */}
                     </details>
                 </div>
                 <div data-preview>
