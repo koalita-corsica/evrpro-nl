@@ -6,7 +6,7 @@ export default {
         {
             name: 'id',
             type: 'number',
-            title: 'Id dans la BD'
+            title: 'Id dans la BDD'
         },
         {
             name: 'title',

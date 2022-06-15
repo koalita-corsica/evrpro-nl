@@ -57,46 +57,46 @@ const IndexPage = (props) => {
     //  log("hey : " + filtered.dataset.entreprise);
 
   }
-  function createCompany() {
-    axios.get('https://api.dev.evrpro.com/societes/', {
-      headers: {
-          'Authorization' : 'Bearer 8|oGHdJjQo7UTHeaJb6v8jGccSG4k5DHRg3n3pMGxX',
-          'Content-Type' : 'application/json',
-          'Accept' : 'application/json',
-      }
-    })
-    .then(function (response) {
-        // handle success
-        for(var i in response.data.data){
+  // function createCompany() {
+  //   axios.get('https://api.dev.evrpro.com/societes/', {
+  //     headers: {
+  //         'Authorization' : 'Bearer 8|oGHdJjQo7UTHeaJb6v8jGccSG4k5DHRg3n3pMGxX',
+  //         'Content-Type' : 'application/json',
+  //         'Accept' : 'application/json',
+  //     }
+  //   })
+  //   .then(function (response) {
+  //       // handle success
+  //       for(var i in response.data.data){
   
   
-         const concat = concat('22 ', response.data.data[i].id);
-            const doc = {
-                _id: concat,
-                _type: 'company',
-                title: response.data.data[i].raison_sociale,
-                statut: response.data.data[i].statut_juridique,
-                gerant: response.data.data[i].gerants.name,
-                activite: response.data.data[i].activite.activite,
-                code: response.data.data[i].activite.code,
-                division: response.data.data[i].activite.division,
-                code_postal: response.data.data[i].adresse.code_postal,
-                rue: response.data.data[i].adresse.rue,
-                ville: response.data.data[i].adresse.ville,
-                email: response.data.data[i].contact.email,
-                fax: response.data.data[i].contact.fax,
-                telephone: response.data.data[i].contact.telephone
-            }
+  //        const concat = concat('22 ', response.data.data[i].id);
+  //           const doc = {
+  //               _id: concat,
+  //               _type: 'company',
+  //               title: response.data.data[i].raison_sociale,
+  //               statut: response.data.data[i].statut_juridique,
+  //               gerant: response.data.data[i].gerants.name,
+  //               activite: response.data.data[i].activite.activite,
+  //               code: response.data.data[i].activite.code,
+  //               division: response.data.data[i].activite.division,
+  //               code_postal: response.data.data[i].adresse.code_postal,
+  //               rue: response.data.data[i].adresse.rue,
+  //               ville: response.data.data[i].adresse.ville,
+  //               email: response.data.data[i].contact.email,
+  //               fax: response.data.data[i].contact.fax,
+  //               telephone: response.data.data[i].contact.telephone
+  //           }
             
-            console.log(doc)
-           // client.createIfNotExists(doc)
-        }
-    })
-    .catch(function (error) {
-        // handle error
-        console.log(error);
-    });
-  }
+  //           console.log(doc)
+  //          // client.createIfNotExists(doc)
+  //       }
+  //   })
+  //   .catch(function (error) {
+  //       // handle error
+  //       console.log(error);
+  //   });
+  // }
 
   function logzog() {
       axios.post('https://api.dev.evrpro.com/login', {
@@ -110,6 +110,55 @@ const IndexPage = (props) => {
       .then(function (response) {
           // handle success
           console.log(response)
+          const tokenus = "Bearer " + response.data.token
+          // on enchaine avec la requete
+          axios.get('https://api.dev.evrpro.com/societes/', {
+              headers: {
+                  'Authorization' : tokenus,
+                  'Content-Type' : 'application/json',
+                  'Accept' : 'application/json',
+              }
+            })
+            .then(function (response) {
+
+              const sanityClient = require('@sanity/client')
+              const client = sanityClient({
+                projectId: 'zpdf06rn',
+                dataset: 'production',
+                apiVersion: '2021-03-25', // use current UTC date - see "specifying API version"!
+                token: 'skflP6VREyww0KCEsp6XZK8USpHNIFroYmGqvcri4wLr5JCMnTCU96fJgSVoesY18AcM2QTijCTmmXJefiChEobCy9PMIf7iUhLuEg2mA2XnlygVrJcjsCSf1hfuUFlV13HZDlZi7tZ1XuwiAALB5kn5ITWpRsdBAyiYiNWxkVDTAMHARMEI',
+              })
+
+                // handle success
+                for(var i in response.data.data){
+          
+                    const doc = {
+                        _id: "22" + response.data.data[i].id, // obligatoire pour le create if not exist. On rajoute le prefix numérique '22' pour éviter les doublons 
+                        id:response.data.data[i].id, // On a le champs "ID dans la BDD", juste au cas ou, en controle
+                        _type: 'company',
+                        title: response.data.data[i].raison_sociale,
+                        statut: response.data.data[i].statut_juridique,
+                        gerant: response.data.data[i].gerants.name,
+                        activite: response.data.data[i].activite.activite,
+                        code: response.data.data[i].activite.code,
+                        division: response.data.data[i].activite.division,
+                        code_postal: response.data.data[i].adresse.code_postal,
+                        rue: response.data.data[i].adresse.rue,
+                        ville: response.data.data[i].adresse.ville,
+                        email: response.data.data[i].contact.email,
+                        fax: response.data.data[i].contact.fax,
+                        telephone: response.data.data[i].contact.telephone
+                    }
+                    
+                    console.log(doc)
+                    client.createIfNotExists(doc)
+                }
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            });
+ 
       })
       .catch(function (error) {
           // handle error
@@ -122,7 +171,6 @@ const IndexPage = (props) => {
         <Layout>
           <label>Filtrer les entreprises : <input type="text" onKeyUp={recherche} /></label>
           <button onClick={logzog}>API Test log</button>
-          <button onClick={createCompany}>API Test req</button>
           <div data-homewrapper >
             <div data-gridhome>              
               {company.map((item, i) =>
