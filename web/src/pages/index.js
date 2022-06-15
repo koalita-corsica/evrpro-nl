@@ -57,43 +57,46 @@ const IndexPage = (props) => {
     //  log("hey : " + filtered.dataset.entreprise);
 
   }
-  // function createCompany() {
-  //   axios.get('https://api.dev.evrpro.com/societes/', {
-  //     headers: {
-  //         'Authorization' : 'Bearer 3|kHg1Af40ugAHycMm1kJsFdZp2jchfYuioIwcMyNs',
-  //         'Content-Type' : 'application/json',
-  //         'Accept' : 'application/json',
-  //     }
-  //   })
-  //   .then(function (response) {
-  //       // handle success
-  //       for(var i in response.data.data){
-        
-  //           const doc = {
-  //               _type: 'company',
-  //               title: response.data.data[i].raison_sociale,
-  //               statut: response.data.data[i].statut_juridique,
-  //               gerant: response.data.data[i].gerants.name,
-  //               activite: response.data.data[i].activite.activite,
-  //               code: response.data.data[i].activite.code,
-  //               division: response.data.data[i].activite.division,
-  //               code_postal: response.data.data[i].adresse.code_postal,
-  //               rue: response.data.data[i].adresse.rue,
-  //               ville: response.data.data[i].adresse.ville,
-  //               email: response.data.data[i].contact.email,
-  //               fax: response.data.data[i].contact.fax,
-  //               telephone: response.data.data[i].contact.telephone
-  //           }
+  function createCompany() {
+    axios.get('https://api.dev.evrpro.com/societes/', {
+      headers: {
+          'Authorization' : 'Bearer 8|oGHdJjQo7UTHeaJb6v8jGccSG4k5DHRg3n3pMGxX',
+          'Content-Type' : 'application/json',
+          'Accept' : 'application/json',
+      }
+    })
+    .then(function (response) {
+        // handle success
+        for(var i in response.data.data){
+  
+  
+         const concat = concat('22 ', response.data.data[i].id);
+            const doc = {
+                _id: concat,
+                _type: 'company',
+                title: response.data.data[i].raison_sociale,
+                statut: response.data.data[i].statut_juridique,
+                gerant: response.data.data[i].gerants.name,
+                activite: response.data.data[i].activite.activite,
+                code: response.data.data[i].activite.code,
+                division: response.data.data[i].activite.division,
+                code_postal: response.data.data[i].adresse.code_postal,
+                rue: response.data.data[i].adresse.rue,
+                ville: response.data.data[i].adresse.ville,
+                email: response.data.data[i].contact.email,
+                fax: response.data.data[i].contact.fax,
+                telephone: response.data.data[i].contact.telephone
+            }
             
-  //           console.log(doc)
-  //          // client.create(doc)
-  //       }
-  //   })
-  //   .catch(function (error) {
-  //       // handle error
-  //       console.log(error);
-  //   });
-  // }
+            console.log(doc)
+           // client.createIfNotExists(doc)
+        }
+    })
+    .catch(function (error) {
+        // handle error
+        console.log(error);
+    });
+  }
 
   function logzog() {
       axios.post('https://api.dev.evrpro.com/login', {
@@ -101,10 +104,8 @@ const IndexPage = (props) => {
           'Content-Type' : 'application/json',
           'Accept' : 'application/json',
         },
-        json: {
-          'email' : 'david@evr-pro.com',
-          'password' : 'eVr.SL13',
-        }
+        'email' : 'jiann@koalita.corsica',
+        'password' : 'wBoCqT1k',
       })
       .then(function (response) {
           // handle success
@@ -112,7 +113,7 @@ const IndexPage = (props) => {
       })
       .catch(function (error) {
           // handle error
-          console.log(error);
+          console.log("err : " + error);
       });
     }
 
@@ -120,9 +121,10 @@ const IndexPage = (props) => {
   return (
         <Layout>
           <label>Filtrer les entreprises : <input type="text" onKeyUp={recherche} /></label>
-          <button onClick={logzog}>API Test</button>
-          <div data-homeWrapper >
-            <div data-gridHome>              
+          <button onClick={logzog}>API Test log</button>
+          <button onClick={createCompany}>API Test req</button>
+          <div data-homewrapper >
+            <div data-gridhome>              
               {company.map((item, i) =>
               <Link to={`/entreprise/${item.node.title}`}  data-vue="up">
                 <div data-item data-entreprise={item.node.title}>

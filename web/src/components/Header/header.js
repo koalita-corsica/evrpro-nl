@@ -4,7 +4,6 @@ import * as styles from "./header.css"
 
 const Header = () => {
     return ( 
-        <>
         <div data-header>
         <div>
             Bonjour <span data-username>Davif Gibert</span>
@@ -22,7 +21,6 @@ const Header = () => {
             </a>
         </div>
         </div>
-        </>
      );
 }
 

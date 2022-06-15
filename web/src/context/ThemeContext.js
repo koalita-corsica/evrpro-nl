@@ -2,45 +2,41 @@ import React from "react"
 
 const defaultState = {
   logged: false,
-  toggleDark: () => {},
+  toggleLogged: () => {},
 }
 
 const ThemeContext = React.createContext(defaultState)
 
-// Getting dark mode information from OS!
-// You need macOS Mojave + Safari Technology Preview Release 68 to test this currently.
-const supportsDarkMode = () =>
-  window.matchMedia("(prefers-color-scheme: dark)").matches === true
 
 class ThemeProvider extends React.Component {
   state = {
-    dark: false,
+    logged: false,
   }
 
-  toggleDark = () => {
-    let dark = !this.state.dark
-    localStorage.setItem("dark", JSON.stringify(dark))
-    this.setState({ dark })
+  toggleLogged = () => {
+    let logged = !this.state.logged
+    localStorage.setItem("logged", JSON.stringify(logged))
+    this.setState({ logged })
   }
 
   componentDidMount() {
-    // Getting dark mode value from localStorage!
-    const lsDark = JSON.parse(localStorage.getItem("dark"))
-    if (lsDark) {
-      this.setState({ dark: lsDark })
-    } else if (supportsDarkMode()) {
-      this.setState({ dark: true })
+    // Getting logged value from localStorage!
+    const lsLogged = JSON.parse(localStorage.getItem("logged"))
+    if (lsLogged) {
+      this.setState({ logged: lsLogged })
+    } else {
+      this.setState({ logged: true })
     }
   }
 
   render() {
     const { children } = this.props
-    const { dark } = this.state
+    const { logged } = this.state
     return (
       <ThemeContext.Provider
         value={{
-          dark,
-          toggleDark: this.toggleDark,
+          logged,
+          toggleLogged: this.toggleLogged,
         }}
       >
         {children}

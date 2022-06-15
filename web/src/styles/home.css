@@ -2,13 +2,13 @@ label {
   margin: 2rem;
 }
 
-[data-homeWrapper] {
+[data-homewrapper] {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
 }
-[data-homeWrapper] [data-gridHome] {
+[data-homewrapper] [data-gridhome] {
   margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
@@ -16,17 +16,17 @@ label {
   gap: 2rem;
   justify-content: center;
 }
-[data-homeWrapper] [data-gridHome] a {
+[data-homewrapper] [data-gridhome] a {
   text-decoration: none;
   color: #2f2828;
 }
-[data-homeWrapper] [data-gridHome] a[data-vue=up] {
+[data-homewrapper] [data-gridhome] a[data-vue=up] {
   display: block;
 }
-[data-homeWrapper] [data-gridHome] a[data-vue=down] {
+[data-homewrapper] [data-gridhome] a[data-vue=down] {
   display: none;
 }
-[data-homeWrapper] [data-gridHome] a [data-item] {
+[data-homewrapper] [data-gridhome] a [data-item] {
   display: flex;
   transition: all 300ms ease-in-out;
   border-radius: 5px;
@@ -35,27 +35,27 @@ label {
   border: solid 1px gray;
   box-shadow: 2px 2px gray;
 }
-[data-homeWrapper] [data-gridHome] a [data-item] img {
+[data-homewrapper] [data-gridhome] a [data-item] img {
   height: 5rem;
   width: 5rem;
   border-radius: 5px;
   object-fit: cover;
 }
-[data-homeWrapper] [data-gridHome] a [data-item] div {
+[data-homewrapper] [data-gridhome] a [data-item] div {
   box-sizing: border-box;
   border-radius: 5px;
   font-size: 0.8rem;
   width: 35ch;
 }
-[data-homeWrapper] [data-gridHome] a [data-item] div ul {
+[data-homewrapper] [data-gridhome] a [data-item] div ul {
   padding: 0 5px;
   list-style: none;
 }
-[data-homeWrapper] [data-gridHome] a [data-item] div ul li {
+[data-homewrapper] [data-gridhome] a [data-item] div ul li {
   list-style: none;
   text-align: center;
 }
-[data-homeWrapper] [data-gridHome] a [data-item]:hover {
+[data-homewrapper] [data-gridhome] a [data-item]:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
