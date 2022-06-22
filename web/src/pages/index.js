@@ -117,7 +117,7 @@ const IndexPage = (props) => {
                   'Authorization' : tokenus,
                   'Content-Type' : 'application/json',
                   'Accept' : 'application/json',
-              }
+              },
             })
             .then(function (response) {
 
@@ -131,8 +131,8 @@ const IndexPage = (props) => {
 
                 // handle success
                 for(var i in response.data.data){
-          
-                    const doc = {
+
+                  const doc = {
                         _id: "22" + response.data.data[i].id, // obligatoire pour le create if not exist. On rajoute le prefix numérique '22' pour éviter les doublons 
                         id:response.data.data[i].id, // On a le champs "ID dans la BDD", juste au cas ou, en controle
                         _type: 'company',
