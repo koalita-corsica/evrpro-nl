@@ -69,12 +69,32 @@ const CompanyTemplate = (props) => {
 
   const entreprise = data && data.entreprise;
 
+  const tomail = 'mailto:' + data.entreprise.email 
+  const checknl = data.entreprise.title
+
   return (
     <Layout>
       <Previous />
-      <h1> Entreprise : {entreprise.title} </h1>  
+      <h1>{entreprise.title} </h1>  
       <div data-companyWrapper>
         <div data-companyGrid>
+          <div data-detailscompany>
+            <h2>Fiche détaillée</h2>
+            <h3>{entreprise.title}</h3>
+            <h4>Statut : <span data-infodyn>{entreprise.statut}</span></h4>
+            <h4>Gérant : <span data-infodyn>{entreprise.gerant}</span></h4>
+            <h4>Activité : <span data-infodyn>{entreprise.activite}</span></h4>
+            <h4>Email : <span data-infodyn><a href={tomail}>{entreprise.email}</a></span></h4>
+            <h4>Tel : <span data-infodyn>{entreprise.telephone}</span></h4>
+            <h4>Division : <span data-infodyn>{entreprise.division}</span></h4>
+            <h4>Adresse : <br />
+            <span data-infodyn>
+              {entreprise.rue}
+              <br />
+            {entreprise.code_postal} {entreprise.ville}</span></h4>
+            
+          </div>
+          <div data-linktodocs>
             <Link to="/fsap"
               state={{fiches: fiches, entreprise: entreprise}}
             >
@@ -96,9 +116,21 @@ const CompanyTemplate = (props) => {
                   <h3>Livret D'Accueil </h3>
               </div>
             </Link>
-            <div data-item data-vgp>
-                <h3> VGP </h3>
-            </div>
+            <Link to="/vgp"
+              state={{entreprise: entreprise}}
+            >
+              <div data-item data-vgp>
+                  <h3> VGP </h3>
+              </div>
+            </Link>
+            {checknl=="BERISKO" && 
+            <Link to="/newsletter">
+            <div data-item data-nl>
+                  <h3>Newsletter</h3>
+              </div>
+            </Link>
+            }
+          </div>  
         </div>
       </div>
     </Layout>

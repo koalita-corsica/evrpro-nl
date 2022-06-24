@@ -112,7 +112,7 @@ const IndexPage = (props) => {
           console.log(response)
           const tokenus = "Bearer " + response.data.token
           // on enchaine avec la requete
-          axios.get('https://api.dev.evrpro.com/societes/', {
+          axios.get('https://api.dev.evrpro.com/societes', {
               headers: {
                   'Authorization' : tokenus,
                   'Content-Type' : 'application/json',
