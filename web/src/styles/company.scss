@@ -23,24 +23,20 @@
             border-radius:5px;
             box-shadow: 2px 2px black;
             padding:1rem;
-            h2 {
-                &:after {
-                    content: "1";
-                    width: 300px;
-                    border-bottom: dotted 1px red;
-                    position:relative;
-                    bottom:0;
-                }
+            [data-traitsepa] {
+                border-bottom:1px #AF0013 dotted;
+                width:70%;
+                height:2px;
             }
             h4 {
                 margin: 0;
                 font-weight: 400;
                 [data-infodyn] {
-                    color: red;
+                    color: #AF0013;
                     font-weight: 500;
                 }
                 a {
-                    color:red;
+                    color:#AF0013;
                     font-weight: 500;
                     text-decoration: underline;
                     &:hover {

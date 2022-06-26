@@ -18,6 +18,92 @@
     top: 0;
   }
 }
+[data-livretContainer] {
+  display: grid;
+  grid-template-columns: 30% auto auto;
+  gap: 10rem;
+}
+[data-livretContainer] [data-form] {
+  margin: 1rem;
+  height: 85vh;
+  overflow-y: scroll;
+  border: solid 3px black;
+  border-radius: 5px;
+  box-shadow: grey 5px 5px;
+}
+[data-livretContainer] [data-form] fieldset {
+  border-radius: 5px;
+  border: 1px black solid;
+  width: 90%;
+  margin: 0 auto;
+}
+[data-livretContainer] [data-form] fieldset details details {
+  padding-left: 15px;
+}
+[data-livretContainer] [data-form] fieldset input:not([type=file]) {
+  border: none;
+  border-bottom: solid 1px gray;
+  margin: 0.8rem 0;
+  width: 15ch;
+}
+[data-livretContainer] [data-form] summary {
+  font-size: 0.8rem;
+}
+[data-livretContainer] [data-form] [data-upload] input {
+  margin: 0.8rem 0;
+}
+[data-livretContainer] [data-form] [data-upload] span {
+  border: solid 2px #AF0013;
+  border-radius: 50%;
+  height: 1rem;
+  width: 1rem;
+  text-align: center;
+  margin-right: 0.6rem;
+  line-height: 1rem;
+}
+[data-livretContainer] [data-form] label {
+  margin: 0;
+}
+[data-livretContainer] [data-form] hr {
+  border-style: dashed;
+  border-color: gray;
+}
+[data-livretContainer] [data-form] [data-pictocontainer] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+[data-livretContainer] [data-form] [data-pictocontainer] [data-minipicto] {
+  margin: 5px;
+  border: solid 1px lightcoral;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+[data-livretContainer] [data-form] [data-pictocontainer] [data-minipicto] input {
+  margin: 0;
+}
+[data-livretContainer] [data-form] [data-taches] label {
+  pointer-events: none;
+}
+[data-livretContainer] [data-form] [data-save] {
+  width: 90%;
+  font-size: 1rem;
+  padding: 1rem 0;
+  margin: 0 auto;
+  text-align: center;
+  border-color: lightgreen;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: darkolivegreen 2px 2px;
+}
+[data-livretContainer] [data-form] [data-save]:hover {
+  background-color: lightgreen;
+  color: white;
+}
+
 [data-livret] {
   font-family: "Montserrat", sans-serif;
   height: 297mm;
@@ -1827,5 +1913,3 @@
   text-align: center;
   font: italic normal bold 12px/14px Montserrat;
 }
-
-/*# sourceMappingURL=livret.module.css.map */

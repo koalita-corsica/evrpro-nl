@@ -80,6 +80,7 @@ const CompanyTemplate = (props) => {
         <div data-companyGrid>
           <div data-detailscompany>
             <h2>Fiche détaillée</h2>
+            <span data-traitsepa>&nbsp;</span>
             <h3>{entreprise.title}</h3>
             <h4>Statut : <span data-infodyn>{entreprise.statut}</span></h4>
             <h4>Gérant : <span data-infodyn>{entreprise.gerant}</span></h4>

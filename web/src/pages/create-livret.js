@@ -349,12 +349,14 @@ const LivretAPI = (props) => {
 
     return (
         <>  
-            <h1> Livret D'Accueil API </h1>
-            <div data-livretContainer style={{display: 'flex', gap: '10rem'}}>
-                <div data-form>
-                    <div data-couverture>
+            <h1> Livret d'Accueil API </h1>
+            <div data-livretContainer>
+                <div data-form style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+                    <fieldset>
+                        <legend>Couverture</legend>
+                        <div data-couverture>
                         <details>
-                            <summary> Section Couverture </summary>
+                            <summary> Page de garde </summary>
                             <div data-logo12>
                                 <input type="file" name="image" onChange={(e) => handleImage(e)}/>
                             </div>
@@ -373,9 +375,14 @@ const LivretAPI = (props) => {
                             <button onClick={createCouverture}> Valider </button>  
                         </details>
                     </div>
-                    <div data-renseigments>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Renseigments
+                        </legend>
+                        <div data-renseigments>
                         <details>
-                            <summary> Section Renseigments </summary>
+                            <summary> Informations relatives à l'entreprise </summary>
                             <div data-salaries>
                                 <label for="nbSalaries"> Nb de salariés </label>
                                 <input name="nbSalaries" type="text" onChange={(event) => setNbSalaries(event.target.value)}/>
@@ -409,35 +416,57 @@ const LivretAPI = (props) => {
                                 <input name="unite" type="text" onChange={(event) => setUnite(event.target.value)}/>
                             </div>
                             <input type="file" name="image" onChange={(e) => handleImagePlan(e)}/>     
+                            <br />
                             <button onClick={createRenseignements}> Valider </button> 
                         </details>
                     </div>
-                    <div data-regles1>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                        Règles
+                        </legend>
+                        <div data-regles1>
                         <details>
-                            <summary> Section Regles </summary>
+                            <summary> Règles générales de sécurité </summary>
                             <div data-info>
                                 <label for="fonction"> Fonction </label>
                                 <input name="fonction" type="text" onChange={(event) => setFonction(event.target.value)}/>
+                                <br />
                                 <label for="nom"> Nom </label>
                                 <input name="nom" type="text" onChange={(event) => setNom(event.target.value)}/>
+                                <br />
                                 <label for="tel"> Téléphone </label>
                                 <input name="tel" type="text" onChange={(event) => setTelephoneInfo(event.target.value)}/>
                             </div>  
                             <button onClick={createInfos}> Valider </button> 
                         </details>
                     </div>
-                    <div data-equipment>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Équipement
+                        </legend>
+                        <div data-equipment>
                         <details>
-                            <summary> Section Equipment </summary>
+                            <summary> Pictogrammes des EPIs </summary>
+                            <div data-pictocontainer>
                             {data.map((item, i) => 
                             <>
-                                <input type="checkbox" id={item.node.title} name={item.node.title} value={item.node.image.asset.url} onClick={() => actionEPI(item)} />
-                                <label for={item.node.title}> <img src={item.node.image.asset.url} width="50" /> </label>
+                                <div data-minipicto>
+                                    <label for={item.node.title}> <img src={item.node.image.asset.url} width="50" /> </label>
+                                    <input type="checkbox" id={item.node.title} name={item.node.title} value={item.node.image.asset.url} onClick={() => actionEPI(item)} />
+                                </div>
                             </>
                             )}
+                            </div>
                         </details>
                     </div>
-                    <div data-incendie1>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Incendie
+                        </legend>
+                        <div data-incendie1>
                         <details>
                             <summary> Section Incendie </summary>
                             <div data-evacuer>
@@ -445,20 +474,33 @@ const LivretAPI = (props) => {
                                 <input name="evacuer" type="text" onChange={(event) => setEvacuer(event.target.value)}/>
                             </div>
                             <input type="file" name="image" onChange={(e) => handleImagePartenaire(e)}/>
+                            <br />
                             <button onClick={createIncendie}> Valider </button>    
                         </details>
                     </div>
-                    <div data-risques1>
+                    </fieldset>
+                    <fieldset>
+                        <legend>
+                            Risques
+                        </legend>
+                        <div data-risques1>
                         <details>
-                            <summary> Section Rsiques </summary>
+                            <summary> Pictogrammes des risques </summary>
+                            <div data-pictocontainer>
                             {wRisques.map((item, i) => 
                             <>
-                                <input type="checkbox" id={item.node.title} name={item.node.title} value={item.node.picto.asset.url} onClick={() => actionRisques(item)} />
-                                <label for={item.node.title}> <img src={item.node.picto.asset.url} width="50" /> </label>
+                                <div data-minipicto>
+                                    <label for={item.node.title}> <img src={item.node.picto.asset.url} width="50" /> </label>
+                                    <input type="checkbox" id={item.node.title} name={item.node.title} value={item.node.picto.asset.url} onClick={() => actionRisques(item)} />
+                                </div>
                             </>
                             )}
+                            </div>
                         </details>
                     </div>
+                    </fieldset>
+                    <button onClick={handleSubmit1} data-save> Enregistrer la fiche </button>
+                    <hr />
                 </div>
                 <div data-preview>
                     <div id={styles.capture} >
@@ -972,7 +1014,6 @@ const LivretAPI = (props) => {
                         </div>
                     </div>
                 </div>
-                <button onClick={handleSubmit1}> Save </button>
             </div>
         </>
      );
