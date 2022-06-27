@@ -22,6 +22,10 @@
     display: grid;
     grid-template-columns: 30% auto auto;
     gap: 10rem;
+    box-sizing: border-box;
+    [data-preview] {
+      overflow-y: scroll;
+    }
     [data-form] {
         margin: 1rem;
         height: 85vh;
@@ -48,20 +52,6 @@
           }
           summary {
             font-size: 0.8rem;
-          }
-          [data-upload] {
-            input {
-              margin:0.8rem 0;
-            }
-            span {
-              border:solid 2px #AF0013;
-              border-radius: 50%;
-              height: 1rem;
-              width:1rem;
-              text-align: center;
-              margin-right: 0.6rem;
-              line-height: 1rem;
-            }
           }
           label {
             margin:0;
