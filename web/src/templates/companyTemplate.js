@@ -56,6 +56,13 @@ export const query = graphql`
         }
       }
     }
+    vgp: allSanityVgp(filter: {entreprise: {id: {eq: $id}}}) {
+      edges {
+        node {
+         id
+       }
+      }
+    }
   }
 `;
 
@@ -66,11 +73,14 @@ const CompanyTemplate = (props) => {
   const fiches = data && data.fichedeposte;
   const notices = data && data.noticechimique;
   const livrets = data && data.livrets;
+  const vgp = data && data.vpg;
 
   const entreprise = data && data.entreprise;
 
   const tomail = 'mailto:' + data.entreprise.email 
   const checknl = data.entreprise.title
+
+
 
   return (
     <Layout>
@@ -118,7 +128,7 @@ const CompanyTemplate = (props) => {
               </div>
             </Link>
             <Link to="/vgp"
-              state={{entreprise: entreprise}}
+              state={{vgp: vgp, entreprise: entreprise}}
             >
               <div data-item data-vgp>
                   <h3> VGP </h3>
