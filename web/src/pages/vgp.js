@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from '../components/layout';
 import * as styles from "../styles/fsap.css";
 import {Link} from "gatsby";
 import Previous from '../components/previous/previous';
 
-const Notice = () => {
+const VGP = () => {
     let log = console.log;
 
-    const data = typeof window !== "undefined" && window.history.state.vgp
     const entreprise = typeof window !== "undefined" && window.history.state.entreprise
+    const tableEngin = typeof window !== "undefined" && window.history.state.tableEngin
 
+    function states() {
+        console.log("plop " + tableEngin)
+    }
 
     return ( 
         <Layout>
             <Previous />
             <div data-fsapWrapper>
                 <h1> VGP/{entreprise.title} </h1>
-                <h1>{entreprise.sanityId}</h1>
+                <h1>hey : {states()}</h1>
                 <div data-fsapGrid>
-                    {data && data != null ?
+                    {/* {data && data != null ?
                     <>
                         {data.map((item, i) =>
                             <div data-item>
@@ -43,7 +46,7 @@ const Notice = () => {
                         </>
                         :
                             ""
-                        }
+                        } */}
                         <Link to="/create-vgp" 
                         state={{data: entreprise}}
                         >
@@ -59,4 +62,4 @@ const Notice = () => {
      );
 }
 
-export default Notice;
+export default VGP;

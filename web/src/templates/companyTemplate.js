@@ -104,8 +104,6 @@ const CompanyTemplate = (props) => {
               {entreprise.rue}
               <br />
             {entreprise.code_postal} {entreprise.ville}</span></h4>
-            <br />
-            {entreprise.idbdd}
           </div>
           <div data-linktodocs>
             <Link to="/fsap"
