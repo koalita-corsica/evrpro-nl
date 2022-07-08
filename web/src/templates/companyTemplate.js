@@ -8,6 +8,7 @@ export const query = graphql`
   query Company1($id: String!) {
     entreprise: sanityCompany(id: { eq: $id }) {
         _id
+        idbdd
         title
         rue
         ville
@@ -103,7 +104,8 @@ const CompanyTemplate = (props) => {
               {entreprise.rue}
               <br />
             {entreprise.code_postal} {entreprise.ville}</span></h4>
-            
+            <br />
+            {entreprise.idbdd}
           </div>
           <div data-linktodocs>
             <Link to="/fsap"
@@ -127,8 +129,8 @@ const CompanyTemplate = (props) => {
                   <h3>Livret D'Accueil </h3>
               </div>
             </Link>
-            <Link to="/vgp"
-              state={{vgp: vgp, entreprise: entreprise}}
+            <Link to="/engins"
+              state={{entreprise: entreprise}}
             >
               <div data-item data-vgp>
                   <h3> VGP </h3>

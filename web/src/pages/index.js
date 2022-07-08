@@ -135,6 +135,7 @@ const IndexPage = (props) => {
                   const doc = {
                         _id: "22" + response.data.data[i].id, // obligatoire pour le create if not exist. On rajoute le prefix numérique '22' pour éviter les doublons 
                         id:response.data.data[i].id, // On a le champs "ID dans la BDD", juste au cas ou, en controle
+                        idbdd:response.data.data[i].id, // Duplique parce que "ID" c'est pas ouf
                         _type: 'company',
                         title: response.data.data[i].raison_sociale,
                         statut: response.data.data[i].statut_juridique,

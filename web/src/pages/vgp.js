@@ -16,6 +16,7 @@ const Notice = () => {
             <Previous />
             <div data-fsapWrapper>
                 <h1> VGP/{entreprise.title} </h1>
+                <h1>{entreprise.sanityId}</h1>
                 <div data-fsapGrid>
                     {data && data != null ?
                     <>

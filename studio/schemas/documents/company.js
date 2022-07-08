@@ -9,6 +9,11 @@ export default {
             title: 'Id dans la BDD'
         },
         {
+            name: 'idbdd',
+            type: 'number',
+            title: 'Le doublon de l\'ID de la BDD'
+        },
+        {
             name: 'title',
             type: 'string',
             title: 'Raison Sociale'
