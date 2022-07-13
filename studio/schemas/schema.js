@@ -44,7 +44,12 @@ import contact from './objects/contact';
 import activite from "./objects/activite";
 import fichepostApi from "./documents/fichepostAPI";
 import fichechimqueApi from "./documents/fichechimqueAPI";
-import VGP from "./documents/vgp"
+import enginsAPI from "./documents/enginsAPI";
+import VGP from "./documents/vgp";
+import vgpchantier from "./documents/vgpchantier";
+import vgpcompacteur from "./documents/vgpcompacteur";
+import vgplevage from "./documents/vgplevage";
+import pictosEngins from "./documents/pictosEngins";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -87,11 +92,16 @@ export default createSchema({
     fichepostApi,
     livretAPI,
     fichechimqueApi,
-    VGP,
     tacheAPI,
     couvertureAPI,
     incendieAPI,
     newsletterAPI,
+    enginsAPI,
+    VGP,
+    vgpchantier,
+    vgpcompacteur,
+    vgplevage,
+    pictosEngins
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
   ]),

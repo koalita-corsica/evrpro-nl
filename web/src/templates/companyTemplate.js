@@ -1,8 +1,10 @@
 import { graphql, Link } from "gatsby";
-import React from "react";
+import React, {useEffect, useState} from 'react';
 import Previous from "../components/previous/previous";
 import Layout from "../containers/layout";
 import * as styles from "../styles/company.css"
+import axios from 'axios';
+
 
 export const query = graphql`
   query Company1($id: String!) {
@@ -64,8 +66,27 @@ export const query = graphql`
        }
       }
     }
+    engins: allSanityEnginsApi(filter: {entreprise: {id: {eq: $id}}}) {
+      edges {
+          node {
+            id
+            marque
+            _rawEntreprise
+            catEngin
+            achat
+            _updatedAt
+            catID
+            circulation
+            dernierVGP
+            immatriculation
+            nom
+            numero_serie
+          }
+      }
+    }
   }
 `;
+
 
 const CompanyTemplate = (props) => {
   let log = console.log;
@@ -75,11 +96,16 @@ const CompanyTemplate = (props) => {
   const notices = data && data.noticechimique;
   const livrets = data && data.livrets;
   const vgp = data && data.vpg;
+  const engins = data && data.engins;
 
   const entreprise = data && data.entreprise;
 
   const tomail = 'mailto:' + data.entreprise.email 
   const checknl = data.entreprise.title
+log(data)
+log(fiches)
+ console.log(engins)
+
 
 
 
@@ -128,10 +154,10 @@ const CompanyTemplate = (props) => {
               </div>
             </Link>
             <Link to="/engins"
-              state={{entreprise: entreprise}}
+              state={{engins: engins, entreprise: entreprise}}
             >
               <div data-item data-vgp>
-                  <h3> VGP </h3>
+                  <h3> Engins </h3>
               </div>
             </Link>
             {checknl=="BERISKO" && 

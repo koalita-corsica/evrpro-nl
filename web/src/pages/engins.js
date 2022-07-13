@@ -6,12 +6,17 @@ import Previous from '../components/previous/previous';
 import axios from 'axios';
 
 
+
 const Engins = () => {
 
 
     const entreprise = typeof window !== "undefined" && window.history.state.entreprise
+    const engins = typeof window !== "undefined" && window.history.state.engins
     const bdd = entreprise.idbdd
     const [tableEngin, setTableEngin] = useState([]);
+    const [entrepriseId, setEntrepriseId] = useState(entreprise._id)
+
+
 
 
     function getengins() {
@@ -50,6 +55,8 @@ const Engins = () => {
                   for(var i in response.data.data){
   
                     const enginindiv = {
+                          _id: "99" + response.data.data[i].id, // obligatoire pour le create if not exist. On rajoute le prefix numérique '99' pour éviter les doublons 
+                          _type: 'enginsAPI',
                           nom: response.data.data[i].nom,
                           marque: response.data.data[i].marque,
                           catID: response.data.data[i].categorie.identifiant,
@@ -60,14 +67,21 @@ const Engins = () => {
                           achat: response.data.data[i].date_achat,
                           circulation: response.data.data[i].date_mise_en_circulation,
                           dernierCT: response.data.data[i].date_dernier_CT,
-                          dernierVGP: response.data.data[i].date_dernier_VGP
+                          dernierVGP: response.data.data[i].date_dernier_VGP,
+                          slug: `${entreprise.title}/${response.data.data[i].nom}`,
+                            entreprise: {
+                                _type: 'reference',
+                                _ref: entrepriseId,
+                            },
                       }
-                      const index = tableEngin.findIndex(object => object.numero_serie === enginindiv.numero_serie);
+                         console.log(enginindiv)
+                        // create(enginindiv)
+                    //   const index = tableEngin.findIndex(object => object.numero_serie === enginindiv.numero_serie);
 
-                        if (index === -1) {
-                         tableEngin.push(enginindiv);
-                         console.log(tableEngin)
-                        }
+                    //     if (index === -1) {
+                    //      tableEngin.push(enginindiv);
+                    //      console.log(tableEngin)
+                    //     }
                   }
               })
               .catch(function (error) {
@@ -78,27 +92,7 @@ const Engins = () => {
         .catch(function (error) {
             // handle error
             console.log("err : " + error);
-        });
-        return (
-            <>{
-                tableEngin.map(
-                    i => 
-                    <div data-item>
-                            <Link to="/vgp" state={{tableEngin: tableEngin[i], entreprise: entreprise}}>
-                                <ul> 
-                                    <li>{i.nom}</li>
-                                    <li>{i.marque}</li>
-                                    <li>{i.catID}</li>
-                                    <li>{i.catEngin}</li>
-                                    <li>Date de mise en circulation : {i.circulation}</li>
-                                    <li>Dernier VGP : {i.dernierVGP}</li>
-                                </ul> 
-                            </Link> 
-                    </div>
-                )
-            }
-            </>
-        )
+        });        
       }
       
     return ( 
@@ -107,7 +101,23 @@ const Engins = () => {
             <div data-fsapWrapper>
                 <h1> Liste des engins : {entreprise.title} </h1>
                 <div data-fsapGrid>
-                    {getengins()}
+                    <button onClick={getengins}>Ici</button>
+                    {
+                        engins.edges.map(
+                            i => 
+                            <div data-item>
+                                    <Link to="/vgp" state={{engin: i, entreprise: entreprise}}>
+                                        <ul> 
+                                            <li>{i.node.nom}</li>
+                                            <li>{i.node.catID}</li>
+                                            <li>{i.node.catEngin}</li>
+                                            <li>Date de mise en circulation : {i.node.circulation}</li>
+                                            <li>Dernier VGP : {i.node.dernierVGP}</li>
+                                        </ul> 
+                                    </Link> 
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </Layout>

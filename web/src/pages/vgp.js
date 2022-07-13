@@ -7,55 +7,216 @@ import Previous from '../components/previous/previous';
 const VGP = () => {
     let log = console.log;
 
+    const engin = typeof window !== "undefined" && window.history.state.engin.node
     const entreprise = typeof window !== "undefined" && window.history.state.entreprise
-    const tableEngin = typeof window !== "undefined" && window.history.state.tableEngin
+    console.log(engin)
+    const typeRapport = () => {
+        switch(engin.catID) {
 
-    function states() {
-        console.log("plop " + tableEngin)
+            case "R.482 Cat A 1":
+            case "R.482 Cat A 2":
+            case "R.482 Cat A 3":
+            case "R.482 Cat A 4":
+            case "R.482 Cat A 5":                
+            case "R.482 Cat B 1":
+            case "R.482 Cat B 2":
+            case "R.482 Cat B 3":
+            case "R.482 Cat C 1":
+            case "R.482 Cat C 2":
+            case "R.482 Cat C 3":
+            case "R.482 Cat D 1":
+            case "R.482 Cat D 2":
+            case "R.482 Cat E 1":
+            case "R.482 Cat E 2":
+            case "R.482 Cat E 3":
+                return  <div>
+                            <h3>Rapport de Chantier</h3>
+                            <h4>Périodicité : 12 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin, perio: 12}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+                    ;
+                break;
+            case "R.482 Cat F 1":
+            case "R.482 Cat F 2":
+            case "R.486 Cat A 3":
+            case "R.486 Cat B 1":
+            case "R.486 Cat B 2":
+            case "R.486 Cat B 3":
+            case "R.489 Cat 1 B":
+            case "R.489 Cat 2B":
+            case "R.489 Cat 3":
+            case "R.489 Cat 4":
+            case "R.489 Cat 5":
+            case "R.489 Cat 6":
+            case "R.490 cat 1":
+            case "R. 490 cat 2":
+            case "R. 484 cat 1":
+            case "R. 484 cat 2":
+            case "R.485 cat 1":
+            case "R.485 cat 2":    
+            case "HAYON":
+                return <div>
+                            <h3>Rapport de Levage</h3>
+                            <h4>Périodicité : 6 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+                ;
+                break;   
+
+            case "BOM":
+                return <div>
+                            <h3>Rapport de Compacteur</h3>
+                            <h4>Périodicité : 3 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+                ;
+                break;     
+
+            case "PE 1":
+            case "PE 2":
+            case "PE 3":
+            case "PE P":
+            case "PEG 4":
+            case "PEG C":
+            case "PE C":
+                return <div>
+                            <h3>Rapport de Levage</h3>
+                            <h4>Périodicité : 12 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+                ;
+                break;  
+
+            case "MM C":
+            case "MM P":
+            case "MM CH":
+            case "MM A":
+                return <div>
+                            <h3>Rapport de Levage</h3>
+                            <h4>Périodicité : 6 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+            ;
+                break;         
+
+            case "R. 490C PL": 
+            case "R. 490C VL":
+                return <>
+                        <div>
+                            <h3>Rapport de Compacteur</h3>
+                            <h4>Périodicité : 3 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+                        <div>
+                            <h3>Rapport de Levage</h3>
+                            <h4>Périodicité : 6 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+                    </>
+                ;
+                break;
+
+            case "R. 490G PL": 
+            case "R. 490G VL":
+                return <>
+                        <div>
+                            <h3>Rapport de Levage</h3>
+                            <h4>Périodicité : 6 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+                        <div>
+                            <h3>Rapport de Levage</h3>
+                            <h4>Périodicité : 6 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>
+                    </>
+                break;            
+
+            case "R. 487 Cat 1":
+            case "R. 487 Cat 2":
+            case "R. 487 Cat 3":
+            case "R. 483m A":
+            case "R. 483m B": 
+                return <div>
+                            <h3>Rapport de Levage Grue</h3>
+                            <h4>Périodicité : 6 mois</h4>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                                <div data-create>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                    </svg>
+                                </div>
+                            </Link>
+                        </div>;
+                break;
+
+            default: return <div><h3>Pas de VGP trouvés pour cette Identifiant de catégorie</h3></div>;
+        }
     }
+
 
     return ( 
         <Layout>
             <Previous />
             <div data-fsapWrapper>
-                <h1> VGP/{entreprise.title} </h1>
-                <h1>hey : {states()}</h1>
+                <h1> VGP : {entreprise.title} - {engin.nom}</h1>
+                <p>{engin.catID}</p>
                 <div data-fsapGrid>
-                    {/* {data && data != null ?
-                    <>
-                        {data.map((item, i) =>
-                            <div data-item>
-                                <Link to={`/VGP/${item.node.slug}`} >
-                                <div data-main>
-                                    <p> Nom : {item.node.fichedeposte} </p> 
-                                    <p> Version/Date : {item.node.version} </p>
-                                </div>
-                                </Link>
-                                <div data-icons1>
-                                    <Link data-search to={`/VGP/${item.node.slug}`} >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style={{cursor: 'pointer', transform: 'scale(1.1)'}} viewBox="0 0 16 16">
-                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                        </svg>
-                                    </Link>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style={{cursor: 'pointer', transform: 'scale(1.1)'}} viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                        )}
-                        </>
-                        :
-                            ""
-                        } */}
-                        <Link to="/create-vgp" 
-                        state={{data: entreprise}}
-                        >
-                            <div data-create>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-                                </svg>
-                            </div>
-                        </Link>
+                    {typeRapport()}
                 </div>
             </div>
         </Layout>

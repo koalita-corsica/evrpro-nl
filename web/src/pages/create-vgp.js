@@ -4,13 +4,9 @@ import { graphql } from "gatsby";
 import logo from "../assets/logo.png";
 import { navigate } from 'gatsby';
 import Layout from '../components/layout';
-import ChariotElevateur from '../components/VGPTypes/chariotElevateur';
-import Nacelle from '../components/VGPTypes/nacelle';
-import Pelle from '../components/VGPTypes/pelle';
-import Hayon from '../components/VGPTypes/hayon';
+import RapportVGP from '../components/VGPTypes/rapportvgp';
 import Previous from '../components/previous/previous';
 const sanityClient = require('@sanity/client');
-const axios = require('axios');
 const client = sanityClient({
     projectId: 'zpdf06rn',
     dataset: 'production',
@@ -72,6 +68,19 @@ query Pictos2 {
           }
         }
       }
+      allSanityPictosEngins {
+        edges {
+          node {
+            title
+            _id
+            picto {
+              asset {
+                url
+              }
+            }
+          }
+        }
+      }
       allSanityCompany {
         edges {
           node {
@@ -92,7 +101,10 @@ const VGP = (props, location) => {
     let interdictions = props.data.allSanityPictosI.edges
     let obligations = props.data.allSanityPictosO.edges
     
-    let entrepriseData = typeof window !== "undefined" && window.history.state.data
+    const engin = typeof window !== "undefined" && window.history.state.engin
+    const entrepriseData = typeof window !== "undefined" && window.history.state.entreprise
+    const perio = typeof window !== "undefined" && window.history.state.perio
+    console.log(perio)
 
     // Tout les variables d'etat
     const [version, setVersion ] = useState("")
@@ -127,7 +139,10 @@ const VGP = (props, location) => {
     const [logoSrc, setLogoSrc] = useState("")
     const [options, setOptions] = useState([])
 
-  
+    const [mesdonnes, setDonnes] = useState([])
+   
+    // https://stackoverflow.com/questions/35537229/how-can-i-update-the-parents-state-in-react
+
 
     // Crée l'object pour envoyer au studio
     function handleSubmit1() {
@@ -154,82 +169,14 @@ const VGP = (props, location) => {
         }
     }
 
-    function getengins() {
-        axios.post('https://api.dev.evrpro.com/login', {
-          headers: {
-            'Content-Type' : 'application/json',
-            'Accept' : 'application/json',
-          },
-          'email' : 'jiann@koalita.corsica',
-          'password' : 'wBoCqT1k',
-        })
-        .then(function (response) {
-            // handle success
-            console.log(response)
-            const tokenus = "Bearer " + response.data.token
-            // on enchaine avec la requete
-            axios.get('https://api.dev.evrpro.com//categories/engin', {
-                headers: {
-                    'Authorization' : tokenus,
-                    'Content-Type' : 'application/json',
-                    'Accept' : 'application/json',
-                },
-              })
-              .then(function (response) {
-  
-                const sanityClient = require('@sanity/client')
-                const client = sanityClient({
-                  projectId: 'zpdf06rn',
-                  dataset: 'production',
-                  apiVersion: '2021-03-25', // use current UTC date - see "specifying API version"!
-                  token: 'skflP6VREyww0KCEsp6XZK8USpHNIFroYmGqvcri4wLr5JCMnTCU96fJgSVoesY18AcM2QTijCTmmXJefiChEobCy9PMIf7iUhLuEg2mA2XnlygVrJcjsCSf1hfuUFlV13HZDlZi7tZ1XuwiAALB5kn5ITWpRsdBAyiYiNWxkVDTAMHARMEI',
-                })
-  
-                  // handle success
-                  for(var i in response.data.data){
-  
-                    // const doc = {
-                    //       _id: "22" + response.data.data[i].id, // obligatoire pour le create if not exist. On rajoute le prefix numérique '22' pour éviter les doublons 
-                    //       id:response.data.data[i].id, // On a le champs "ID dans la BDD", juste au cas ou, en controle
-                    //       _type: 'company',
-                    //       title: response.data.data[i].raison_sociale,
-                    //       statut: response.data.data[i].statut_juridique,
-                    //       gerant: response.data.data[i].gerants.name,
-                    //       activite: response.data.data[i].activite.activite,
-                    //       code: response.data.data[i].activite.code,
-                    //       division: response.data.data[i].activite.division,
-                    //       code_postal: response.data.data[i].adresse.code_postal,
-                    //       rue: response.data.data[i].adresse.rue,
-                    //       ville: response.data.data[i].adresse.ville,
-                    //       email: response.data.data[i].contact.email,
-                    //       fax: response.data.data[i].contact.fax,
-                    //       telephone: response.data.data[i].contact.telephone
-                    //   }
-                      
-                      console.log(response.data.data[i])
-                     // client.createIfNotExists(doc)
-                  }
-              })
-              .catch(function (error) {
-                  // handle error
-                  console.log(error);
-              });
-   
-        })
-        .catch(function (error) {
-            // handle error
-            console.log("err : " + error);
-        });
-      }
 
     return (
         <Layout>
         <Previous />
-        <h1> VGP </h1>
-        <button onClick={getengins}>API Test log</button>
         <div data-vgpContainer>
             <div data-form style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
-            <select onChange={(e) => setType(e.target.value)}> 
+              <RapportVGP stateChanger={setDonnes}/>
+            {/* <select onChange={(e) => setType(e.target.value)}> 
                 <option> Type de controlle </option>
                 <option value="chariot"> Chariot Elevateur </option>
                 <option value="nacelle"> Nacelle </option>
@@ -266,7 +213,7 @@ const VGP = (props, location) => {
                     }
                 </>
                 
-            }
+            } */}
             </div>
             <div data-preview>
                 <div>
@@ -274,14 +221,14 @@ const VGP = (props, location) => {
                     <div data-vgp id="main">
                         <div data-header>
                             <img src={logo} alt="" width="491" />
-                            <h1>VERIFICATION REGLEMENTAIRE DES CHARIOTS ELEVATEURS</h1>
+                            <h1>VERIFICATION REGLEMENTAIRE DES {engin.catEngin}</h1>
                         </div>
                         <div data-mainbody>
                             <div data-section1></div>
                             <div data-section2>
                                 <div data-infosG>
                                             <div>Date</div>
-                                            <div></div>
+                                            <div>{mesdonnes}</div>
                                             <div>N° CLIENT</div>
                                             <div></div>
                                             <div>N° RAPPORT</div>
@@ -319,7 +266,9 @@ const VGP = (props, location) => {
                                 <div data-resp>
                                     <div>RESPONSABLE DE L’APPAREIL</div>
                                     <div>SIGNATURE</div>
-                                    <div>Nom et société :</div>
+                                    <div>Nom et société : <br />
+                                    {entreprise}
+                                    </div>
                                     <div></div>
                                 </div>
                             </div>
