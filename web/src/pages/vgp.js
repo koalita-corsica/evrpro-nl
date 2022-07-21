@@ -64,7 +64,7 @@ const VGP = () => {
                 return <div>
                             <h3>Rapport de Levage</h3>
                             <h4>Périodicité : 6 mois</h4>
-                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin}}>
+                            <Link to="/create-vgp" state={{entreprise: entreprise, engin: engin, numero: 1}}>
                                 <div data-create>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>

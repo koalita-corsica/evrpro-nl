@@ -53,7 +53,7 @@ const Engins = () => {
                 
                   // handle success
                   for(var i in response.data.data){
-  
+                    console.log(response.data.data)
                     const enginindiv = {
                           _id: "99" + response.data.data[i].id, // obligatoire pour le create if not exist. On rajoute le prefix numérique '99' pour éviter les doublons 
                           _type: 'enginsAPI',
@@ -74,7 +74,7 @@ const Engins = () => {
                                 _ref: entrepriseId,
                             },
                       }
-                         console.log(enginindiv)
+                        // console.log(enginindiv)
                         // create(enginindiv)
                     //   const index = tableEngin.findIndex(object => object.numero_serie === enginindiv.numero_serie);
 

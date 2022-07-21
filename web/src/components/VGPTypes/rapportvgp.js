@@ -7,7 +7,7 @@ const client = sanityClient({
     token: 'skflP6VREyww0KCEsp6XZK8USpHNIFroYmGqvcri4wLr5JCMnTCU96fJgSVoesY18AcM2QTijCTmmXJefiChEobCy9PMIf7iUhLuEg2mA2XnlygVrJcjsCSf1hfuUFlV13HZDlZi7tZ1XuwiAALB5kn5ITWpRsdBAyiYiNWxkVDTAMHARMEI',
 })
 
-const RapportVGP = ({stateChanger,props}) => {
+const RapportVGP = ({props, numero, typeVerif, certif, manuel, rapportPrec, carnet, registre, source, chassis, setChassis, charpente, setCharpente, cabine, setCabine, organes, setOrganes}) => {
     let log = console.log;
 
     var dateObj = new Date();
@@ -23,12 +23,12 @@ const RapportVGP = ({stateChanger,props}) => {
     const [nRapport, setNRapport] = useState("")
     const [nControle, setNControle] = useState("")
     const [prochaineVerif, setProchaineVerif] = useState(prochaine)
-    const [typeService, setTypeService] = useState("")
-    const [certificat, setCertificat] = useState("")
-    const [manuel, setManuel] = useState("")
-    const [rapports, setRapports] = useState("")
-    const [carnet, setCarnet] = useState("")
-    const [registre, setRegistre] = useState("")
+    // const [typeService, setTypeService] = useState("")
+    // const [certificat, setCertificat] = useState("")
+    //const [manuel, setManuel] = useState("")
+    // const [rapports, setRapports] = useState("")
+    // const [carnet, setCarnet] = useState("")
+    // const [registre, setRegistre] = useState("")
 
 
     // useEffect(() => {
@@ -36,9 +36,56 @@ const RapportVGP = ({stateChanger,props}) => {
     // })
 
 
+    function updatechassis(e) {
+        let sujet = e.parentNode.parentNode.querySelector('input[type=radio]').name
+        let parent = e.parentNode.parentNode.firstChild.innerHTML
+        let inputText = e.parentNode.parentNode.lastChild.querySelector('input').value
+        let data = (inputText) ? inputText : parent
+        let multiple = {
+            etat: e.value,
+            detail: data
+        }
+        setChassis({...chassis, [sujet]: multiple})
+    }
+
+    function updatecharpente(e) {
+        let sujet = e.parentNode.parentNode.querySelector('input[type=radio]').name
+        let parent = e.parentNode.parentNode.firstChild.innerHTML
+        let inputText = e.parentNode.parentNode.lastChild.querySelector('input').value
+        let data = (inputText) ? inputText : parent
+        let multiple = {
+            etat: e.value,
+            detail: data
+        }
+        setCharpente({...charpente, [sujet]: multiple})
+    }
+
+    function updatecabine(e) {
+        let sujet = e.parentNode.parentNode.querySelector('input[type=radio]').name
+        let parent = e.parentNode.parentNode.firstChild.innerHTML
+        let inputText = e.parentNode.parentNode.lastChild.querySelector('input').value
+        let data = (inputText) ? inputText : parent
+        let multiple = {
+            etat: e.value,
+            detail: data
+        }
+        setCabine({...cabine, [sujet]: multiple})
+    }
+
+    function updateorganes(e) {
+        let sujet = e.parentNode.parentNode.querySelector('input[type=radio]').name
+        let parent = e.parentNode.parentNode.firstChild.innerHTML
+        let inputText = e.parentNode.parentNode.lastChild.querySelector('input').value
+        let data = (inputText) ? inputText : parent
+        let multiple = {
+            etat: e.value,
+            detail: data
+        }
+        setOrganes({...organes, [sujet]: multiple})
+    }
+
     return ( 
         <div data-chariotWrapper>
-                <button onClick={() => stateChanger('plop')}>ici</button>
         <div data-form>
             <div data-first>
             <details>
@@ -52,741 +99,356 @@ const RapportVGP = ({stateChanger,props}) => {
             <div data-second>
                 <details>
                 <summary> Type de verification </summary>
-                    <label for="type"> Type de Verification </label>
-                    <select name="type" onChange={(event) => stateChanger(event.target.value)}>
-                        <option value="miseEnService"> Vérification de mise en service </option>
-                        <option value="periodique"> Vérification Générale Périodique VGP (Article R4323-23,24,25,26,27) </option>
-                        <option value="remiseEnService"> Vérification de remise en service </option>
-                    </select>
+                    <h5> Type de Verification </h5>
+                    <div onChange={(event) => typeVerif(event.target.value)}>
+                        <label><input type='radio' name="typeVerif" value="miseEnService" /> Vérification de mise en service <br /></label>
+                        <label><input type='radio' name="typeVerif" value="periodique" /> Vérification Générale Périodique VGP (Article R4323-23,24,25,26,27) <br /></label>
+                        <label><input type='radio' name="typeVerif" value="remiseEnService" /> Vérification de remise en service </label>
+                    </div>
                 </details>
             </div>
             <div data-third>
                 <details>
                     <summary> DOCUMENT OBLIGATOIRE REMPLI ET FOURNI </summary>
                     <div>
-                        <label for="certificat"> Certifcat de conformité + épreuve de mise en service </label>
-                        <select name="certificat" onChange={(event) => setCertificat(event.target.value)}>
-                            <option> Choisir </option>
-                            <option value="oui"> Oui </option>
-                            <option value="non"> Non </option>
-                        </select>
+                        <div onChange={(event) => certif(event.target.value)}>
+                        <h5> Certifcat de conformité + épreuve de mise en service </h5>
+                            <label><input type='radio' name='conf' value="oui" /> Oui <br /></label>
+                            <label><input type='radio' name='conf' value="non" /> Non </label>
+                        </div>
                     </div>
                     <div>
-                        <label for="manuel"> Manuel d’Utilisation (Art. R4323-1 du C.T.) </label>
-                        <select name="manuel" onChange={(event) => setManuel(event.target.value)}>
-                            <option> Choisir </option>
-                            <option value="oui"> Oui </option>
-                            <option value="non"> Non </option>
-                        </select>
+                        <div onChange={(event) => manuel(event.target.value)}>
+                        <h5> Manuel d’Utilisation (Art. R4323-1 du C.T.) </h5>
+                            <label><input type='radio' name='manuel' value="oui" /> Oui <br /></label>
+                            <label><input type='radio' name='manuel' value="non" /> Non </label>
+                        </div>
                     </div>
                     <div>
-                        <label for="rapports"> Rapport(s) de vérification précédent’s) (Art L4711-1 du C.T.) </label>
-                        <select name="rapports" onChange={(event) => setRapports(event.target.value)}>
-                            <option> Choisir </option>
-                            <option value="oui"> Oui </option>
-                            <option value="non"> Non </option>
-                        </select>
+                        <div onChange={(event) => rapportPrec(event.target.value)}>
+                        <h5> Rapport(s) de vérification précédent’s) (Art L4711-1 du C.T.) </h5>
+                            <label><input type='radio' name='rapportPrec' value="oui" /> Oui <br /></label>
+                            <label><input type='radio' name='rapportPrec' value="non" /> Non </label>
+                        </div>
                     </div>
                     <div>
-                        <label for="carnet"> Carnet de Maintenance (ArtR4323-19,20 du C.T.) </label>
-                        <select name="carnet" onChange={(event) => setCarnet(event.target.value)}>
-                            <option> Choisir </option>
-                            <option value="oui"> Oui </option>
-                            <option value="non"> Non </option>
-                        </select>
+                        <div onChange={(event) => carnet(event.target.value)}>
+                        <h5> Carnet de Maintenance (ArtR4323-19,20 du C.T.)</h5>
+                            <label><input type='radio' name='carnet' value="oui" /> Oui <br /></label>
+                            <label><input type='radio' name='carnet' value="non" /> Non </label>
+                        </div>
                     </div>
                     <div>
-                        <label for="registre"> Registre de sécurité (Art. R.4323-26, 27 du C.T.) </label>
-                        <select name="registre" onChange={(event) => setRegistre(event.target.value)}>
-                            <option> Choisir </option>
-                            <option value="oui"> Oui </option>
-                            <option value="non"> Non </option>
-                        </select>
+                        <div onChange={(event) => registre(event.target.value)}>
+                        <h5> Registre de sécurité (Art. R.4323-26, 27 du C.T.) </h5>
+                            <label><input type='radio' name='registre' value="oui" /> Oui <br /></label>
+                            <label><input type='radio' name='registre' value="non" /> Non </label>
+                        </div>
                     </div>
                 </details>
             </div>
             <div data-fourth>
                 <details>
-                    <summary> Compartiment moteur </summary>
+                    <summary> SOURCE D’ENERGIE </summary>
                     <div>
-                        <label for="capotages"> Capotages (état, fixations, fermetures) </label>
-                        <select name="capotages">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="capotages">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="protections"> Protections des parties tournantes (hélices, courroie) </label>
-                        <select name="protections">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="protections">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="sortie"> Sortie d'échappement protégée si accessible </label>
-                        <select name="sortie">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="sortie">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="fluides"> Niveau des fluides </label>
-                        <select name="fluides">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="fluides">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="fuite"> absence de fuite </label>
-                        <select name="fuite">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="fuite">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="batterie"> Batterie(s) (état, fixation , dispositif e deconnection) </label>
-                        <select name="batterie">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="batterie">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <h5> Equipements et Canalisations </h5>
+                        <div onChange={(event) => source(event.target.value)}>
+                            <label><input type='radio' name='source' value='be' />Bon etat</label>
+                            <label><input type='radio' name='source' value='def' />Defectueux</label>
+                            <label><input type='radio' name='source' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                 </details>
             </div>
             <div data-fifth>
                 <details>
-                    <summary> Châssis </summary>
+                    <summary> CHASSIS - Porteur </summary>
                     <div>
-                        <label for="pneus"> Etat des pneumatiuques </label>
-                        <select name="pneus">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="pneus">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatechassis(e.target)}>
+                        <h5> Châssis, traverses, longerons </h5>
+                            <label><input type='radio' name='chassis' value='be' />Bon etat</label>
+                            <label><input type='radio' name='chassis' value='def' />Defectueux</label>
+                            <label><input type='radio' name='chassis' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="jantes"> Etat des jantes </label>
-                        <select name="jantes">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="jantes">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatechassis(e.target)}>
+                        <h5> Organes de roulement (pneumatiques, chenilles)</h5>
+                            <label><input type='radio' name='organe' value='be' />Bon etat</label>
+                            <label><input type='radio' name='organe' value='def' />Defectueux</label>
+                            <label><input type='radio' name='organe' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="contrepoids"> Contrepoids (état et fixation) </label>
-                        <select name="contrepoids">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="contrepoids">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatechassis(e.target)}>
+                        <h5> Indicateur de dévers </h5>
+                            <label><input type='radio' name='devers' value='be' />Bon etat</label>
+                            <label><input type='radio' name='devers' value='def' />Defectueux</label>
+                            <label><input type='radio' name='devers' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="verin"> Vérin(s) de direction (état, fuites, articulations) </label>
-                        <select name="verin">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="verin">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatechassis(e.target)}>
+                        <h5> Dispositif d’arrimage pour le transport</h5>
+                            <label><input type='radio' name='arrimage' value='be' />Bon etat</label>
+                            <label><input type='radio' name='arrimage' value='def' />Defectueux</label>
+                            <label><input type='radio' name='arrimage' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="support"> supposrt des bouteilles (gaz) </label>
-                        <select name="support">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="support">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="gaz"> Flexibles d'alimentation gaz (état, connexions…) </label>
-                        <select name="gaz">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="gaz">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="carburant"> Réservoir de carburant (état déformations, fuites...) </label>
-                        <select name="carburant">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="carburant">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="huile"> Réservoir d'huile hydraulique (niveau, état, fuites..) </label>
-                        <select name="huile">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="huile">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatechassis(e.target)}>
+                        <h5> Verrouillage mécanique du châssis articulé</h5>
+                            <label><input type='radio' name='verrouillage' value='be' />Bon etat</label>
+                            <label><input type='radio' name='verrouillage' value='def' />Defectueux</label>
+                            <label><input type='radio' name='verrouillage' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                 </details>
             </div>
             <div data-sixth>
-                <div>
-                    <details>
-                        <summary> Poste de condutie </summary>
-                        <div>
-                            <label for="acces"> Accès (état des marchepieds, poignées…) </label>
-                            <select name="acces">
-                                <option> Choisir </option>
-                                <option value="b"> B </option>
-                                <option value="d"> D </option>
-                                <option value="Neo"> Neo </option>
-                            </select>
-                            <select name="acces">
-                                <option> Choisir </option>
-                                <option value="vrai"> V </option>
-                                <option value="faux"> F </option>
-                            </select>
+                <details>
+                    <summary> CHARPENTE </summary>
+                    <div>
+                        <div onChange={(e) => updatecharpente(e.target)}>
+                        <h5> Ossature, tourelle </h5>
+                            <label><input type='radio' name='ossature' value='be' />Bon etat</label>
+                            <label><input type='radio' name='ossature' value='def' />Defectueux</label>
+                            <label><input type='radio' name='ossature' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
                         </div>
-                        <div>
-                            <label for="protege"> Protège-conducteur (état, fixations, déformations…) </label>
-                            <select name="protege">
-                                <option> Choisir </option>
-                                <option value="b"> B </option>
-                                <option value="d"> D </option>
-                                <option value="Neo"> Neo </option>
-                            </select>
-                            <select name="protege">
-                                <option> Choisir </option>
-                                <option value="vrai"> V </option>
-                                <option value="faux"> F </option>
-                            </select>
+                    </div>
+                    <div>
+                        <div onChange={(e) => updatecharpente(e.target)}>
+                        <h5> Flèche, bras, balancier </h5>
+                            <label><input type='radio' name='fleche' value='be' />Bon etat</label>
+                            <label><input type='radio' name='fleche' value='def' />Defectueux</label>
+                            <label><input type='radio' name='fleche' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
                         </div>
-                        <div>
-                            <label for="siege"> Siège (état, fixation, réglages…) </label>
-                            <select name="siege">
-                                <option> Choisir </option>
-                                <option value="b"> B </option>
-                                <option value="d"> D </option>
-                                <option value="Neo"> Neo </option>
-                            </select>
-                            <select name="siege">
-                                <option> Choisir </option>
-                                <option value="vrai"> V </option>
-                                <option value="faux"> F </option>
-                            </select>
+                    </div>
+                    <div>
+                        <div onChange={(e) => updatecharpente(e.target)}>
+                        <h5> Contrepoids (fixations)</h5>
+                            <label><input type='radio' name='contrepoid' value='be' />Bon etat</label>
+                            <label><input type='radio' name='contrepoid' value='def' />Defectueux</label>
+                            <label><input type='radio' name='contrepoid' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
                         </div>
-                        <div>
-                            <label for="ceinture"> Ceinture de sécurité (état fixations, fonctionnement) </label>
-                            <select name="ceinture">
-                                <option> Choisir </option>
-                                <option value="b"> B </option>
-                                <option value="d"> D </option>
-                                <option value="Neo"> Neo </option>
-                            </select>
-                            <select name="ceinture">
-                                <option> Choisir </option>
-                                <option value="vrai"> V </option>
-                                <option value="faux"> F </option>
-                            </select>
+                    </div>
+                    <div>
+                        <div onChange={(e) => updatecharpente(e.target)}>
+                        <h5> Accès intégrés pour entretien</h5>
+                            <label><input type='radio' name='accesentretien' value='be' />Bon etat</label>
+                            <label><input type='radio' name='accesentretien' value='def' />Defectueux</label>
+                            <label><input type='radio' name='accesentretien' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
                         </div>
-                        <div>
-                            <label for="plancher"> Plancher et pédales (état, surface antidérpanate) </label>
-                            <select name="plancher">
-                                <option> Choisir </option>
-                                <option value="b"> B </option>
-                                <option value="d"> D </option>
-                                <option value="Neo"> Neo </option>
-                            </select>
-                            <select name="plancher">
-                                <option> Choisir </option>
-                                <option value="vrai"> V </option>
-                                <option value="faux"> F </option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="contacteur"> Contacteur de démarage si transimission engagée </label>
-                            <select name="contacteur">
-                                <option> Choisir </option>
-                                <option value="b"> B </option>
-                                <option value="d"> D </option>
-                                <option value="Neo"> Neo </option>
-                            </select>
-                            <select name="contacteur">
-                                <option> Choisir </option>
-                                <option value="vrai"> V </option>
-                                <option value="faux"> F </option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="leviers"> Fonctionnement et repérgae leviers de commande</label>
-                            <select name="leviers">
-                                <option> Choisir </option>
-                                <option value="b"> B </option>
-                                <option value="d"> D </option>
-                                <option value="Neo"> Neo </option>
-                            </select>
-                            <select name="leviers">
-                                <option> Choisir </option>
-                                <option value="vrai"> V </option>
-                                <option value="faux"> F </option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="contactSiege"> Contacteurs de siège ou dispositif équivalent </label>
-                            <select name="contactSiege">
-                                <option> Choisir </option>
-                                <option value="b"> B </option>
-                                <option value="d"> D </option>
-                                <option value="Neo"> Neo </option>
-                            </select>
-                            <select name="contactSiege">
-                                <option> Choisir </option>
-                                <option value="vrai"> V </option>
-                                <option value="faux"> F </option>
-                            </select>
-                        </div>
-                    </details>
-                </div>
+                    </div>
+                </details>
             </div>
             <div data-seventh>
-                <details>
-                    <summary> Pas de titre </summary>
+            <details>
+                    <summary> CABINE – POSTE DE CONDUITE </summary>
                     <div>
-                        <label for="sonore"> Avertisseur sonore </label>
-                        <select name="sonore">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="sonore">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Accès cabine / poste de conduite</h5>
+                            <label><input type='radio' name='accescabine' value='be' />Bon etat</label>
+                            <label><input type='radio' name='accescabine' value='def' />Defectueux</label>
+                            <label><input type='radio' name='accescabine' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="eclairage"> Eclairage </label>
-                        <select name="eclairage">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="eclairage">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Constitution – Fixations - Plancher</h5>
+                            <label><input type='radio' name='constitution' value='be' />Bon etat</label>
+                            <label><input type='radio' name='constitution' value='def' />Defectueux</label>
+                            <label><input type='radio' name='constitution' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="retro"> Rétroviseurs  </label>
-                        <select name="retro">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="retro">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Structure de protection, ROPS & FOPS</h5>
+                            <label><input type='radio' name='structureprot' value='be' />Bon etat</label>
+                            <label><input type='radio' name='structureprot' value='def' />Defectueux</label>
+                            <label><input type='radio' name='structureprot' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="vitrage"> Vitrage's (état, fixations) </label>
-                        <select name="vitrage">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="vitrage">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Visibilité (vitrages - essuie-glace)</h5>
+                            <label><input type='radio' name='visibilite' value='be' />Bon etat</label>
+                            <label><input type='radio' name='visibilite' value='def' />Defectueux</label>
+                            <label><input type='radio' name='visibilite' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="essuie"> Essuie-glaces </label>
-                        <select name="essuie">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="essuie">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Chauffage</h5>
+                            <label><input type='radio' name='Chauffage' value='be' />Bon etat</label>
+                            <label><input type='radio' name='Chauffage' value='def' />Defectueux</label>
+                            <label><input type='radio' name='Chauffage' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="gyrophare"> Gyrophare ou feu équivalent </label>
-                        <select name="gyrophare">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="gyrophare">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Extincteur en cabine</h5>
+                            <label><input type='radio' name='chauffage' value='be' />Bon etat</label>
+                            <label><input type='radio' name='chauffage' value='def' />Defectueux</label>
+                            <label><input type='radio' name='chauffage' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                            </div>
+                        </div>
+                    <div>
+                    <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Siège – Rétroviseurs</h5>
+                            <label><input type='radio' name='siegeretro' value='be' />Bon etat</label>
+                            <label><input type='radio' name='siegeretro' value='def' />Defectueux</label>
+                            <label><input type='radio' name='siegeretro' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="conformite"> Conformité au code de la route si utilisation voirie </label>
-                        <select name="conformite">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="conformite">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Ceinture de sécurité</h5>
+                            <label><input type='radio' name='ceinture' value='be' />Bon etat</label>
+                            <label><input type='radio' name='ceinture' value='def' />Defectueux</label>
+                            <label><input type='radio' name='ceinture' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="tableau"> Tableau de bord (état des témoins et cadrans) </label>
-                        <select name="tableau">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="tableau">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="abaque"> Présence et lisibilité de l'abaque de charge* </label>
-                        <select name="abaque">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="abaque">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="consignes"> Présence et lisibilité des consignes de sécurité </label>
-                        <select name="consignes">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="consignes">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="urgence"> Dispositif d'immoblisation de la machine en cas d'incident (arrêt d'urgence) </label>
-                        <select name="urgence">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="urgence">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="coupe"> Coupe batterie </label>
-                        <select name="coupe">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="coupe">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updatecabine(e.target)}>
+                        <h5>Eclairage cabine</h5>
+                            <label><input type='radio' name='eclairagecabine' value='be' />Bon etat</label>
+                            <label><input type='radio' name='eclairagecabine' value='def' />Defectueux</label>
+                            <label><input type='radio' name='eclairagecabine' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                 </details>
             </div>
             <div data-eight>
                 <details>
-                    <summary> Equipment de levage </summary>
+                    <summary>ORGANES DE SERVICE ET DE MANOEUVRE </summary>
                     <div>
-                        <label for="fourches"> Fourches (usure, déformations, dispositif calage) </label>
-                        <select name="fourches">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="fourches">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Identification des organes de service</h5>
+                            <label><input type='radio' name='identification' value='be' />Bon etat</label>
+                            <label><input type='radio' name='identification' value='def' />Defectueux</label>
+                            <label><input type='radio' name='identification' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="prehension"> Autre dispositif de préhension : </label>
-                        <select name="prehension">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="prehension">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Retour au point neutre (levage)</h5>
+                            <label><input type='radio' name='retourneutre' value='be' />Bon etat</label>
+                            <label><input type='radio' name='retourneutre' value='def' />Defectueux</label>
+                            <label><input type='radio' name='retourneutre' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="tablier"> Tablier : (état, fixation, butées de fourches) </label>
-                        <select name="tablier">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="tablier">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Mise en marche - arrêt sélecteur</h5>
+                            <label><input type='radio' name='misenmarche' value='be' />Bon etat</label>
+                            <label><input type='radio' name='misenmarche' value='def' />Defectueux</label>
+                            <label><input type='radio' name='misenmarche' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="dosseret"> Dosseret d'appui de charge (état, fixations…) </label>
-                        <select name="dosseret">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="dosseret">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Dispositif de condamnation</h5>
+                            <label><input type='radio' name='condamnation' value='be' />Bon etat</label>
+                            <label><input type='radio' name='condamnation' value='def' />Defectueux</label>
+                            <label><input type='radio' name='condamnation' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="mat"> Mât (état, jeu fixations, butées, galets…) </label>
-                        <select name="mat">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="mat">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Identification des organes de service</h5>
+                            <label><input type='radio' name='identification' value='be' />Bon etat</label>
+                            <label><input type='radio' name='identification' value='def' />Defectueux</label>
+                            <label><input type='radio' name='identification' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="verinsLevage"> Vérin(s) de levage (fuite, fixations, arrêts d'axes) </label>
-                        <select name="verinsLevage">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="verinsLevage">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Autres arrêts</h5>
+                            <label><input type='radio' name='autresarrets' value='be' />Bon etat</label>
+                            <label><input type='radio' name='autresarrets' value='def' />Defectueux</label>
+                            <label><input type='radio' name='autresarrets' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="verinsInclinaison"> Vérins d'inclinaison </label>
-                        <select name="verinsInclinaison">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="verinsInclinaison">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Avertisseurs sonores ou lumineux</h5>
+                            <label><input type='radio' name='avertisseurs' value='be' />Bon etat</label>
+                            <label><input type='radio' name='avertisseurs' value='def' />Defectueux</label>
+                            <label><input type='radio' name='avertisseurs' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="autresVerins"> Autre (s) vérin(s) : </label>
-                        <select name="autresVerins">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="autresVerins">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Indicateur de dévers</h5>
+                            <label><input type='radio' name='indicdevers' value='be' />Bon etat</label>
+                            <label><input type='radio' name='indicdevers' value='def' />Defectueux</label>
+                            <label><input type='radio' name='indicdevers' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                     <div>
-                        <label for="canalisations"> Canalisations hydrauliques rigides et flexibles </label>
-                        <select name="canalisations">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="canalisations">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="canalisations"> Canalisations hydrauliques rigides et flexibles </label>
-                        <select name="canalisations">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="canalisations">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="flexibles"> Protection des flexibles pressions à -d'1mètre </label>
-                        <select name="flexibles">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="flexibles">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="distributerus"> Distributeurs (fuites, connexions…) </label>
-                        <select name="distributerus">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="distributerus">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="chainesLevage"> Chaines de levage (usure, fixations…) </label>
-                        <select name="chainesLevage">
-                            <option> Choisir </option>
-                            <option value="b"> B </option>
-                            <option value="d"> D </option>
-                            <option value="Neo"> Neo </option>
-                        </select>
-                        <select name="chainesLevage">
-                            <option> Choisir </option>
-                            <option value="vrai"> V </option>
-                            <option value="faux"> F </option>
-                        </select>
+                        <div onChange={(e) => updateorganes(e.target)}>
+                        <h5>Autres organes de service</h5>
+                            <label><input type='radio' name='autresorganes' value='be' />Bon etat</label>
+                            <label><input type='radio' name='autresorganes' value='def' />Defectueux</label>
+                            <label><input type='radio' name='autresorganes' value='nc' />Non Concerné</label>
+                            <br />
+                            <label>Détail du problème : <input type="text" name='sourceTexte' /></label>
+                        </div>
                     </div>
                 </details>
             </div>

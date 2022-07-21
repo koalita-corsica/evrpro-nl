@@ -6,6 +6,7 @@ import { navigate } from 'gatsby';
 import Layout from '../components/layout';
 import RapportVGP from '../components/VGPTypes/rapportvgp';
 import Previous from '../components/previous/previous';
+import { set } from 'react-hook-form';
 const sanityClient = require('@sanity/client');
 const client = sanityClient({
     projectId: 'zpdf06rn',
@@ -103,8 +104,9 @@ const VGP = (props, location) => {
     
     const engin = typeof window !== "undefined" && window.history.state.engin
     const entrepriseData = typeof window !== "undefined" && window.history.state.entreprise
-    const perio = typeof window !== "undefined" && window.history.state.perio
-    console.log(perio)
+    const numero = typeof window !== "undefined" && window.history.state.numero
+    
+    const pictosEngins = props.data.allSanityPictosEngins.edges
 
     // Tout les variables d'etat
     const [version, setVersion ] = useState("")
@@ -139,10 +141,72 @@ const VGP = (props, location) => {
     const [logoSrc, setLogoSrc] = useState("")
     const [options, setOptions] = useState([])
 
-    const [mesdonnes, setDonnes] = useState([])
+    
+    // State globaux
+
+    const [typeverif, setTypeVerif] = useState("")
+    const [certif, setCertif] = useState("")
+    const [manuel, setManuel] = useState("") 
+    const [rapportPrec, setRapportPrec] = useState("") 
+    const [carnet, setCarnet] = useState("") 
+    const [registre, setRegistre] = useState("") 
+
+
+    // State rapport 1
+
+    const allPB = []
+
+    const [source, setSource] = useState([""])
+    const [probs, setProbs] = useState([{}])
+    const [chassis, setChassis] = useState({
+      chassis: {etat: "", detail: ""},
+      organe: {etat: "", detail: ""},
+      devers: {etat: "", detail: ""},
+      arrimage: {etat: "", detail: ""},
+      verrouillage: {etat: "", detail: ""}
+    })
+    const [charpente, setCharpente] = useState({
+      ossature: {etat: "", detail: ""},
+      fleche:{etat: "", detail: ""},
+      contrepoid: {etat: "", detail: ""},
+      accesentretien: {etat: "", detail: ""}
+    })
+    const [cabine, setCabine] = useState({
+      accescabine: {etat: "", detail: ""},
+      constitution:{etat: "", detail: ""},
+      structureprot: {etat: "", detail: ""},
+      visibilite: {etat: "", detail: ""},
+      chauffage: {etat: "", detail: ""},
+      exctincteurcabine: {etat: "", detail: ""},
+      siegeretro: {etat: "", detail: ""},
+      ceinture: {etat: "", detail: ""},
+      eclairagecabine: {etat: "", detail: ""}
+    })
+    const [organes, setOrganes] = useState({
+      identification: {etat: "", detail: ""},
+      retourneutre:{etat: "", detail: ""},
+      misenmarche: {etat: "", detail: ""},
+      condamnation: {etat: "", detail: ""},
+      autresarrets: {etat: "", detail: ""},
+      avertisseurs: {etat: "", detail: ""},
+      indicdevers: {etat: "", detail: ""},
+      autresorganes: {etat: "", detail: ""}
+    }
+
+    )
+
+
+    function pbChassis() {
+      let asArray = Object.entries(chassis)
+      let res = asArray.filter(x =>
+        x.some(y =>
+          y.etat === 'def'
+          ) 
+        )
+        allPB(...allPB, res)
+    }
    
     // https://stackoverflow.com/questions/35537229/how-can-i-update-the-parents-state-in-react
-
 
     // Crée l'object pour envoyer au studio
     function handleSubmit1() {
@@ -174,46 +238,25 @@ const VGP = (props, location) => {
         <Layout>
         <Previous />
         <div data-vgpContainer>
-            <div data-form style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
-              <RapportVGP stateChanger={setDonnes}/>
-            {/* <select onChange={(e) => setType(e.target.value)}> 
-                <option> Type de controlle </option>
-                <option value="chariot"> Chariot Elevateur </option>
-                <option value="nacelle"> Nacelle </option>
-                <option value="pelle"> Pelle </option>
-                <option value="hayon"> Hayon Elevateur </option>
-            </select>
-            {type == "chariot" ?
-                <ChariotElevateur />
-                :
-                <>
-                    {type == "nacelle"
-                    ?
-                    <Nacelle />
-                    :
-                    <>
-                    {type == "pelle"
-                    ?
-                        <>
-                            <Pelle />
-                        </>
-                        :
-                        <>
-                        {type == "hayon" ?
-                            <>
-                            <Hayon />
-                            </>
-                        :
-                        <>
-                        </>
-                        }
-                        </>
-                    }
-                    </>
-                    }
-                </>
-                
-            } */}
+            <div style={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+              <RapportVGP 
+              numero={numero}
+              typeVerif={setTypeVerif} 
+              certif={setCertif} 
+              manuel={setManuel} 
+              rapportPrec={setRapportPrec} 
+              carnet={setCarnet}
+              registre={setRegistre}
+              source={setSource}
+              chassis={chassis}
+              setChassis={setChassis}
+              charpente={charpente}
+              setCharpente={setCharpente}
+              cabine={cabine}
+              setCabine={setCabine}
+              organes={organes}
+              setOrganes={setOrganes}
+              />
             </div>
             <div data-preview>
                 <div>
@@ -224,25 +267,27 @@ const VGP = (props, location) => {
                             <h1>VERIFICATION REGLEMENTAIRE DES {engin.catEngin}</h1>
                         </div>
                         <div data-mainbody>
-                            <div data-section1></div>
+                            <div data-section1>
+                            <button onClick={pbChassis}>ici</button>
+                            </div>
                             <div data-section2>
                                 <div data-infosG>
                                             <div>Date</div>
-                                            <div>{mesdonnes}</div>
-                                            <div>N° CLIENT</div>
                                             <div></div>
+                                            <div>N° CLIENT</div>
+                                            <div>{version}</div>
                                             <div>N° RAPPORT</div>
                                             <div></div>
                                             <div>N° CONTRÔLE</div>
                                             <div></div>
                                             <div>PROCHAINE VÉRIFICATION</div>
-                                            <div></div>
+                                            <div>{typeverif}</div>
 
                                 </div>
                                 <div data-checked>
-                                    <div><input type="checkbox" />Vérification de mise en service</div>
-                                    <div><input type="checkbox" />Vérification Générale Périodique VGP (Article R4323-23,24,25,26,27)</div>
-                                    <div><input type="checkbox" />Vérification de remise en service</div>
+                                    <div>{typeverif == "miseEnService" ? <input type="checkbox" checked /> : <input type="checkbox" />}Vérification de mise en service</div>
+                                    <div>{typeverif == "periodique" ? <input type="checkbox" checked /> : <input type="checkbox" />}Vérification Générale Périodique VGP (Article R4323-23,24,25,26,27)</div>
+                                    <div>{typeverif == "remiseEnService" ? <input type="checkbox" checked /> : <input type="checkbox" />}Vérification de remise en service</div>
                                 </div>
                             </div>
                             <div data-section3>
@@ -252,16 +297,16 @@ const VGP = (props, location) => {
                             <div data-section4>
                                 <div data-docob>
                                         <div>DOCUMENT OBLIGATOIRE REMPLI ET FOURNI</div>
-                                        <div>Certifcat de conformité + épreuve de mise en service</div>
-                                        <div></div>
+                                        <div>Certificat de conformité + épreuve de mise en service</div>
+                                        <div>{certif}</div>
                                         <div>Manuel d’Utilisation (Art. R4323-1 du C.T.)</div>
-                                        <div></div>
+                                        <div>{manuel}</div>
                                         <div>Rapport(s) de vérification précédent’s) (Art L4711-1 du C.T.)</div>
-                                        <div></div>
+                                        <div>{rapportPrec}</div>
                                         <div>Carnet de Maintenance (ArtR4323-19,20 du C.T.)</div>
-                                        <div></div>
+                                        <div>{carnet}</div>
                                         <div>Registre de sécurité (Art. R.4323-26, 27 du C.T.)</div>
-                                        <div></div>
+                                        <div>{registre}</div>
                                 </div>
                                 <div data-resp>
                                     <div>RESPONSABLE DE L’APPAREIL</div>
@@ -275,14 +320,14 @@ const VGP = (props, location) => {
                             <div data-section5>
                                     <div>IDENTIFICATION DE L’APPAREIL</div>
                                         <div>Marque</div>
-                                        <div></div>
+                                        <div>{engin.marque}</div>
                                         <div>Modèle</div>
-                                        <div></div>
+                                        <div>{engin.nom}</div>
                                         <div>N° de série</div>
-                                        <div></div>
+                                        <div>{engin.numero_serie}</div>
                                         <div>Catégorie</div>
-                                        <div></div>
-                                        <div>Accesoire</div>
+                                        <div>{engin.catEngin}</div>
+                                        <div>Accessoire(s)</div>
                                         <div></div>
                                         <div>Charge maxi de levage</div>
                                         <div></div>
@@ -300,7 +345,7 @@ const VGP = (props, location) => {
                                         <div data-trait>Défauts auxquels il faut absolument remédier :</div>
                                         <div data-trait>N°</div>
                                         <div>Défauts auxquels il faut absolument remédier :</div>
-                                        <div data-trait data-loc="1 1"></div>
+                                        <div data-trait data-loc="1 1">{source}</div>
                                         <div data-trait data-loc="1 2"></div>
                                         <div data-trait data-loc="1 3"></div>
                                         <div data-loc="1 4"></div>
