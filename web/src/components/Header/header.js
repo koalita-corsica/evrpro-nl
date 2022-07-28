@@ -1,12 +1,14 @@
 import React from 'react';
 import * as styles from "./header.css"
-
+import { Link } from 'gatsby';
 
 const Header = () => {
     return ( 
         <div data-header>
         <div>
             Bonjour <span data-username>Davif Gibert</span>
+            <br />
+            <Link to="/newsletter"> &gt; Newsletter</Link>
         </div>
         <div>
             EvrPro - Gestion des documents clients

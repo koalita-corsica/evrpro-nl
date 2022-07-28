@@ -1,34 +1,26 @@
 [data-header] {
   margin-top: 0 !important;
   margin-bottom: 1vh;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0 2vw;
   height: 7vh;
   width: 100%;
   background-color: black;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   color: white;
 }
-
+[data-header] a {
+  text-decoration: none;
+  color: white;
+}
 [data-header] [data-logout] a {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   place-items: center;
   text-decoration: none;
   color: white;
 }
-
 [data-header] [data-logout] svg {
   margin-left: 5px;
 }
-/*# sourceMappingURL=header.css.map */

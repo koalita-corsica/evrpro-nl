@@ -10,6 +10,10 @@
     justify-content: space-between;
     align-items: center;
     color: white;
+    a {
+        text-decoration: none;
+        color: white;
+    }
     [data-logout] {
         a {
             display: flex;

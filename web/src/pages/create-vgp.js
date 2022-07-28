@@ -154,57 +154,74 @@ const VGP = (props, location) => {
 
     // State rapport 1
 
-    const allPB = []
+    const [allPB, setAllPB] = useState([])
 
     const [source, setSource] = useState([""])
     const [probs, setProbs] = useState([{}])
-    const [chassis, setChassis] = useState({
-      chassis: {etat: "", detail: ""},
-      organe: {etat: "", detail: ""},
-      devers: {etat: "", detail: ""},
-      arrimage: {etat: "", detail: ""},
-      verrouillage: {etat: "", detail: ""}
-    })
-    const [charpente, setCharpente] = useState({
-      ossature: {etat: "", detail: ""},
-      fleche:{etat: "", detail: ""},
-      contrepoid: {etat: "", detail: ""},
-      accesentretien: {etat: "", detail: ""}
-    })
-    const [cabine, setCabine] = useState({
-      accescabine: {etat: "", detail: ""},
-      constitution:{etat: "", detail: ""},
-      structureprot: {etat: "", detail: ""},
-      visibilite: {etat: "", detail: ""},
-      chauffage: {etat: "", detail: ""},
-      exctincteurcabine: {etat: "", detail: ""},
-      siegeretro: {etat: "", detail: ""},
-      ceinture: {etat: "", detail: ""},
-      eclairagecabine: {etat: "", detail: ""}
-    })
-    const [organes, setOrganes] = useState({
-      identification: {etat: "", detail: ""},
-      retourneutre:{etat: "", detail: ""},
-      misenmarche: {etat: "", detail: ""},
-      condamnation: {etat: "", detail: ""},
-      autresarrets: {etat: "", detail: ""},
-      avertisseurs: {etat: "", detail: ""},
-      indicdevers: {etat: "", detail: ""},
-      autresorganes: {etat: "", detail: ""}
-    }
+    const [chassis, setChassis] = useState([
+      {nom: 'chassis', etat: "", detail: ""},
+      {nom: 'organe', etat: "", detail: ""},
+      {nom: 'devers', etat: "", detail: ""},
+      {nom: 'arrimage', etat: "", detail: ""},
+      {nom: 'verrouillage', etat: "", detail: ""}
+    ])
+    const [charpente, setCharpente] = useState([
+      {nom: 'ossature', etat: "", detail: ""},
+      {nom: 'fleche', etat: "", detail: ""},
+      {nom: 'contrepoid', etat: "", detail: ""},
+      {nom: 'accesentretien', etat: "", detail: ""}
+    ])
+    const [cabine, setCabine] = useState([
+      {nom: 'accescabine', etat: "", detail: ""},
+      {nom: 'constitution', etat: "", detail: ""},
+      {nom: 'structureprot', etat: "", detail: ""},
+      {nom: 'visibilite', etat: "", detail: ""},
+      {nom: 'chauffage', etat: "", detail: ""},
+      {nom: 'exctincteurcabine', etat: "", detail: ""},
+      {nom: 'siegeretro', etat: "", detail: ""},
+      {nom: 'ceinture', etat: "", detail: ""},
+      {nom: 'eclairagecabine', etat: "", detail: ""}
+    ])
+    const [organes, setOrganes] = useState([
+      {nom: 'identification', etat: "", detail: ""},
+      {nom: 'retourneutre', etat: "", detail: ""},
+      {nom: 'misenmarche', etat: "", detail: ""},
+      {nom: 'condamnation', etat: "", detail: ""},
+      {nom: 'autresarrets', etat: "", detail: ""},
+      {nom: 'avertisseurs', etat: "", detail: ""},
+      {nom: 'indicdevers', etat: "", detail: ""},
+      {nom: 'autresorganes', etat: "", detail: ""}
+    ])
+    const [mecatrans, setMecatrans] = useState([
+      {nom: 'mecanismes', etat: "", detail: ""},
+      {nom: 'verinscanalisation', etat: "", detail: ""},
+      {nom: 'protection',etat: "", detail: ""}
+    ])
+    const [translation, setTranslation] = useState([
+      {nom: 'freinsTranslation', etat: "", detail: ""},
+      {nom: 'securiteSiege', etat: "", detail: ""},
+      {nom: 'feuxSignalisation', etat: "", detail: ""}
+    ])
+    const [orientation, setOrientation] = useState([
+      {nom: 'mecanismeOrientation', etat: "", detail: ""},
+      {nom: 'freinsOrientation', etat: "", detail: ""},
+      {nom: 'limiteurOrientation', etat: "", detail: ""},
+      {nom: 'dispositifiImmobilisation', etat: "", detail: ""}
+    ])
+    const [equipoutils, setEquipoutils] = useState([
+      {nom: 'equipoutils', etat: "", detail: ""}
+    ])
+    const [disposdiverses, setDisposdiverses] = useState([
+      {nom: 'tableauCharge', etat: "", detail: ""},
+      {nom: 'consignesSecu', etat: "", detail: ""},
+      {nom: 'eclairageIncorpore', etat: "", detail: ""},
+      {nom: 'masseCapa', etat: "", detail: ""},
+      {nom: 'idRepere', etat: "", detail: ""},
+      {nom: 'noticeConfo', etat: "", detail: ""}
+    ])
 
-    )
+    const fullReport = chassis.concat(charpente, cabine, organes, mecatrans, translation, orientation, equipoutils, disposdiverses)
 
-
-    function pbChassis() {
-      let asArray = Object.entries(chassis)
-      let res = asArray.filter(x =>
-        x.some(y =>
-          y.etat === 'def'
-          ) 
-        )
-        allPB(...allPB, res)
-    }
    
     // https://stackoverflow.com/questions/35537229/how-can-i-update-the-parents-state-in-react
 
@@ -256,6 +273,17 @@ const VGP = (props, location) => {
               setCabine={setCabine}
               organes={organes}
               setOrganes={setOrganes}
+              mecatrans={mecatrans}
+              setMecatrans={setMecatrans}
+              translation={translation}
+              setTranslation={setTranslation}
+              orientation={orientation}
+              setOrientation={setOrientation}
+              equipoutils={equipoutils}
+              setEquipoutils={setEquipoutils}
+              disposdiverses={disposdiverses}
+              setDisposdiverses={setDisposdiverses}
+
               />
             </div>
             <div data-preview>
@@ -268,7 +296,6 @@ const VGP = (props, location) => {
                         </div>
                         <div data-mainbody>
                             <div data-section1>
-                            <button onClick={pbChassis}>ici</button>
                             </div>
                             <div data-section2>
                                 <div data-infosG>
@@ -345,30 +372,12 @@ const VGP = (props, location) => {
                                         <div data-trait>Défauts auxquels il faut absolument remédier :</div>
                                         <div data-trait>N°</div>
                                         <div>Défauts auxquels il faut absolument remédier :</div>
-                                        <div data-trait data-loc="1 1">{source}</div>
-                                        <div data-trait data-loc="1 2"></div>
-                                        <div data-trait data-loc="1 3"></div>
-                                        <div data-loc="1 4"></div>
-                                        <div data-trait data-loc="2 1"></div>
-                                        <div data-trait data-loc="2 2"></div>
-                                        <div data-trait data-loc="2 3"></div>
-                                        <div data-loc="2 4"></div>
-                                        <div data-trait data-loc="3 1"></div>
-                                        <div data-trait data-loc="3 2"></div>
-                                        <div data-trait data-loc="3 3"></div>
-                                        <div data-loc="3 4"></div>
-                                        <div data-trait data-loc="4 1"></div>
-                                        <div data-trait data-loc="4 2"></div>
-                                        <div data-trait data-loc="4 3"></div>
-                                        <div data-loc="4 4"></div>
-                                        <div data-trait data-loc="5 1"></div>
-                                        <div data-trait data-loc="5 2"></div>
-                                        <div data-trait data-loc="5 3"></div>
-                                        <div data-loc="5 4"></div>
-                                        <div data-trait data-loc="6 1"></div>
-                                        <div data-trait data-loc="6 2"></div>
-                                        <div data-trait data-loc="6 3"></div>
-                                        <div data-loc="6 4"></div>
+                                        {fullReport.filter(item => item.etat === 'def').map((filteredList, index) => (
+                                          <>
+                                            <div data-trait data-loc="1 1">{index + 1}</div>
+                                            <div data-trait data-loc="1 2">{filteredList.detail}</div>
+                                          </>
+                                        ))}
                             </div>
                             <div data-section7>
                                 <div data-appcon>
